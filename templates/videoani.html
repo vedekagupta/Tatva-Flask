@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virtual Tour Animation</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        .background-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .background-video video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .tour-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 10;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.4);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .tour-overlay.active {
+            opacity: 1;
+        }
+
+        .tour-item {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            opacity: 0;
+            transform: scale(0.8) translateY(30px);
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .tour-item.active {
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        .tour-item.exit {
+            opacity: 0;
+            transform: scale(0.8) translateY(-30px);
+        }
+
+        .image-wrapper {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            margin-bottom: 25px;
+            border: 4px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .tour-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
+        .tour-heading {
+            font-size: 2.2rem;
+            font-weight: bold;
+            color: white;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            margin-bottom: 12px;
+            font-family: 'Georgia', serif;
+        }
+
+        .tour-description {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.95);
+            max-width: 450px;
+            line-height: 1.5;
+            text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px 20px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+        }
+
+        .progress-container {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            text-align: center;
+        }
+
+        .progress-container.active {
+            opacity: 1;
+        }
+
+        .progress-text {
+            color: white;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+        }
+
+        .progress-bar {
+            width: 300px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 2px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #4CAF50, #2196F3);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .countdown-timer {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 1.2rem;
+            text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8);
+            z-index: 15;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-timer.active {
+            opacity: 1;
+        }
+
+        .loading-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 1.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+            z-index: 5;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 30px 40px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        #skipTourBtn {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            z-index: 20;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            padding: 10px 18px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+            backdrop-filter: blur(5px);
+        }
+
+        #skipTourBtn:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Background Video -->
+    <div class="background-video">
+        <video id="backgroundVideo" autoplay muted loop>
+            <source src="{{ url_for('static', filename='videofinal.mp4') }}" type="video/mp4">
+            <!-- Fallback content -->
+            <div class="loading-message">
+                <div class="pulse">Loading Video Background...</div>
+            </div>
+        </video>
+    </div>
+
+    <!-- Initial Loading Message -->
+    <div class="loading-message" id="loadingMessage">
+        <div class="pulse">Starting Virtual Tour Experience...</div>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown-timer" id="countdownTimer">
+        Tour starts in: <span id="countdown">11</span>s
+    </div>
+
+    <!-- Tour Overlay -->
+    <div class="tour-overlay" id="tourOverlay">
+        <!-- Tour items will be dynamically generated -->
+    </div>
+
+    <!-- Progress Container -->
+    <div class="progress-container" id="progressContainer">
+        <div class="progress-text" id="progressText">Virtual Tour Progress</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <!-- Skip Tour Button -->
+    <button id="skipTourBtn">Skip Tour</button>
+
+
+    <script>
+        // Tour data
+        const tourData = [
+            
+            {
+                image: "static/images/satyug.jpg",
+                heading: "Satya Yuga",
+                description: "The age of truth and righteousness, where dharma was practiced in its purest form and humanity lived in harmony with the cosmos."
+            },
+            {
+                image: "static/images/tretayug.jpg",
+                heading: "Treta Yuga",
+                description: "The era of Ramayana, where Lord Rama ruled Ayodhya, and the ideals of dharma, sacrifice, and loyalty were exemplified."
+            },
+            {
+                image: "static/images/dwaparyug.jpg",
+                heading: "Dvapara Yuga",
+                description: "The time of Mahabharata, Krishna’s wisdom, and the decline of dharma before entering the darker age of Kali Yuga."
+            },
+            {
+                image: "static/images/indusvalley.jpg",
+                heading: "Indus Valley Civilization",
+                description: "One of the world’s earliest urban cultures, known for planned cities like Mohenjodaro and advanced drainage systems."
+            },
+            {
+                image: "static/images/vedicperiod.jpg",
+                heading: "Vedic Period",
+                description: "The birth of the Rigveda, yajnas, and Vedic hymns that laid the foundation for Indian spirituality and philosophy."
+            },
+            {
+                image: "static/images/southendynasty.jpg",
+                heading: "Maurya & Ashoka Era",
+                description: "A time of political unification and moral transformation, especially under Emperor Ashoka’s Dhamma after the Kalinga War."
+            },
+            {
+                image: "static/images/guptagolden.jpg",
+                heading: "Gupta Golden Age",
+                description: "An age of cultural brilliance, scientific advancement, and classical art — from Aryabhata to Kalidasa."
+            },
+            {
+                image: "static/images/dwaparyug.jpg",
+                heading: "South Indian Dynasties",
+                description: "The era of Cholas, Pallavas, and Pandyas — known for grand temples, bronze sculpture, and maritime trade."
+            },
+            {
+                image: "static/images/nalanda.jpg",
+                heading: "Nalanda & Ancient Universities",
+                description: "Centers of global learning like Nalanda and Vikramashila, where philosophy, medicine, and logic flourished."
+            },
+            {
+                image: "static/images/culture.jpg",
+                heading: "Temples, Art & Language",
+                description: "Marvel at the evolution of temple architecture, Sanskrit literature, and classical art forms that shaped Indian identity."
+            }
+
+        ];
+
+        // Variables
+        let currentTourIndex = 0;
+        let tourInterval;
+        let countdownInterval;
+        let countdownValue = 11;
+
+        // DOM elements
+        const tourOverlay = document.getElementById('tourOverlay');
+        const progressContainer = document.getElementById('progressContainer');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const countdownTimer = document.getElementById('countdownTimer');
+        const countdown = document.getElementById('countdown');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const backgroundVideo = document.getElementById('backgroundVideo');
+
+        // Create tour items
+        function createTourItems() {
+            tourData.forEach((item, index) => {
+                const tourItem = document.createElement('div');
+                tourItem.className = 'tour-item';
+                tourItem.innerHTML = `
+                    <div class="image-wrapper">
+                        <img src="${item.image}" alt="${item.heading}" class="tour-image">
+                    </div>
+                    <h2 class="tour-heading">${item.heading}</h2>
+                    <p class="tour-description">${item.description}</p>
+                `;
+                tourOverlay.appendChild(tourItem);
+            });
+        }
+
+        // Start countdown
+        function startCountdown() {
+            loadingMessage.style.display = 'none';
+            countdownTimer.classList.add('active');
+            
+            countdownInterval = setInterval(() => {
+                countdownValue--;
+                countdown.textContent = countdownValue;
+                
+                if (countdownValue <= 0) {
+                    clearInterval(countdownInterval);
+                    startTour();
+                }
+            }, 1000);
+        }
+
+        // Start tour animation
+        function startTour() {
+            countdownTimer.classList.remove('active');
+            tourOverlay.classList.add('active');
+            progressContainer.classList.add('active');
+
+            showTourItem(0);
+            
+            tourInterval = setInterval(() => {
+                if (currentTourIndex < tourData.length - 1) {
+                    showTourItem(currentTourIndex + 1);
+                } else {
+                    completeTour();
+                }
+            }, 3000);
+        }
+
+        // Show specific tour item
+        function showTourItem(index) {
+            const tourItems = document.querySelectorAll('.tour-item');
+            
+            // Hide current item
+            if (currentTourIndex < tourItems.length) {
+                tourItems[currentTourIndex].classList.remove('active');
+                tourItems[currentTourIndex].classList.add('exit');
+            }
+
+            // Show new item
+            setTimeout(() => {
+                if (currentTourIndex < tourItems.length) {
+                    tourItems[currentTourIndex].classList.remove('exit');
+                }
+                
+                currentTourIndex = index;
+                tourItems[currentTourIndex].classList.add('active');
+                
+                // Update progress bar and text
+                const progress = ((currentTourIndex + 1) / tourData.length) * 100;
+                progressFill.style.width = progress + '%';
+                progressText.textContent = `${currentTourIndex + 1} of ${tourData.length} - ${tourData[currentTourIndex].heading}`;
+            }, 200);
+        }
+
+        // Complete tour and redirect
+        function completeTour() {
+            clearInterval(tourInterval);
+            
+            // Fade out tour
+            tourOverlay.style.opacity = '0';
+            progressContainer.style.opacity = '0';
+            
+            // Show completion message
+            setTimeout(() => {
+                const completionMessage = document.createElement('div');
+                completionMessage.className = 'loading-message';
+                completionMessage.innerHTML = '<div class="pulse">Tour Complete! Redirecting...</div>';
+                document.body.appendChild(completionMessage);
+                
+                setTimeout(() => {
+                    window.location.href = '/index';
+                }, 2000);
+            }, 500);
+        }
+
+        // Initialize everything
+        function initialize() {
+            createTourItems();
+            
+            // Wait for video to load or start after 2 seconds
+            if (backgroundVideo.readyState >= 2) {
+                setTimeout(startCountdown, 1000);
+            } else {
+                backgroundVideo.addEventListener('loadeddata', () => {
+                    setTimeout(startCountdown, 1000);
+                });
+                
+                // Fallback if video doesn't load
+                setTimeout(() => {
+                    if (backgroundVideo.readyState < 2) {
+                        startCountdown();
+                    }
+                }, 2000);
+            }
+        }
+
+        // Handle video loading errors
+        backgroundVideo.addEventListener('error', () => {
+            console.log('Video failed to load, continuing with tour');
+            setTimeout(startCountdown, 1000);
+        });
+
+        // Start initialization
+        initialize();
+
+        // Ensure video loops continuously
+        backgroundVideo.addEventListener('ended', () => {
+            backgroundVideo.currentTime = 0;
+            backgroundVideo.play();
+        });
+
+        // Handle Skip Tour button
+        document.getElementById('skipTourBtn').addEventListener('click', () => {
+            clearInterval(tourInterval);
+            clearInterval(countdownInterval);
+            window.location.href = '/index'; // Update if your file is named differently
+        });
+
+    </script>
+</body>
+</html>

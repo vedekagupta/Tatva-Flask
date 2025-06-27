@@ -1,0 +1,75 @@
+[
+  {
+    "id": "vyasa",
+    "name": "Vyasa",
+    "description": "Ved Vyasa, also called Krishna Dvaipayana Vyasa, is the legendary sage who compiled the Vedas and authored the Mahabharata.",
+    "birthPeriod": "1500 BCE (approx.)",
+    "contributions": [
+      "Compiled the Vedas",
+      "Authored the Mahabharata",
+      "Composed the Puranas",
+      "Divided the Vedas into four parts"
+    ],
+    "image": "vyasa.jpg",
+    "notableQuotes": [
+      {
+        "sanskrit": "धर्म एव हतो हन्ति धर्मो रक्षति रक्षितः।",
+        "translation": "Dharma, when destroyed, destroys; Dharma, when protected, protects."
+      }
+    ]
+  },
+  {
+    "id": "valmiki",
+    "name": "Valmiki",
+    "description": "Valmiki is revered as the author of the Ramayana, one of the greatest Indian epics.",
+    "birthPeriod": "500 BCE (approx.)",
+    "contributions": [
+      "Authored the Ramayana",
+      "Pioneer of Sanskrit poetry",
+      "Known as the Adi Kavi (first poet)"
+    ],
+    "image": "valmiki.jpg",
+    "notableQuotes": [
+      {
+        "sanskrit": "काम क्रोध मोद मोहाद् वाऽनयाद् विपर्ययम्।",
+        "translation": "From desire, anger, joy, and delusion come confusion."
+      }
+    ]
+  },
+  {
+    "id": "agastya",
+    "name": "Agastya",
+    "description": "Sage Agastya is one of the seven revered rishis and is credited with spreading Vedic culture to South India.",
+    "birthPeriod": "1500 BCE (approx.)",
+    "contributions": [
+      "Composed many hymns in the Rigveda",
+      "Spread Vedic knowledge in southern India",
+      "Known for his wisdom and spiritual power"
+    ],
+    "image": "agastya.jpg",
+    "notableQuotes": [
+      {
+        "sanskrit": "सा विद्या या विमुक्तये।",
+        "translation": "True knowledge is that which liberates."
+      }
+    ]
+  },
+  {
+    "id": "narada",
+    "name": "Narada",
+    "description": "Narada Muni is a divine sage known for his travels, devotion, and role as a messenger among gods and humans.",
+    "birthPeriod": "Mythological",
+    "contributions": [
+      "Divine messenger and musician",
+      "Spreader of devotion (bhakti)",
+      "Played a key role in many Puranic stories"
+    ],
+    "image": "narada.jpg",
+    "notableQuotes": [
+      {
+        "sanskrit": "भक्तिः परमो धर्मः।",
+        "translation": "Devotion is the highest duty."
+      }
+    ]
+  }
+]

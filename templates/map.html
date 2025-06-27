@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+
+<head>
+    <title>TatvaMap – Cultural Timeline of Ancient India</title>
+  </head>
+
+<body>
+  <h1 class="title"> TatvaMap – Ancient India Cultural Timeline</h1>
+  
+  <div id="map"></div>
+  <div id="timeline"></div>
+  <div id="infoBox">
+    <p>Click on a map pin or timeline event to learn more about our cultural legacy.</p>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/vis-timeline@7.4.9/standalone/umd/vis-timeline-graph2d.min.js"></script>
+  <script src="map_script.js"></script>
+</body>
+
+<script src="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet/dist/leaflet.css" />
+
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const map = L.map('map').setView([23.5, 78.5], 5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 8,
+    minZoom: 4,
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  fetch('/static/data.json')
+    .then(response => response.json())
+    .then(data => {
+      data.places.forEach(place => {
+        if (place.lat && place.lng) {
+          const marker = L.marker([place.lat, place.lng]).addTo(map);
+          marker.bindPopup(`<b>${place.name}</b><br>${place.description}`);
+          marker.on('click', () => {
+            document.getElementById("infoBox").innerHTML = `
+              <h3>${place.name}</h3>
+              <p>${place.description}</p>
+            `;
+          });
+        }
+      
+    });
+
+    // TIMELINE
+      const timelineItems = data.events.map(event => ({
+        id: event.id,
+        content: event.title,
+        start: event.start
+      }));
+
+      const timelineContainer = document.getElementById("timeline");
+      const timeline = new vis.Timeline(timelineContainer);
+      timeline.setItems(timelineItems);
+
+      timeline.on("select", function (props) {
+        const selected = data.events.find(e => e.id === props.items[0]);
+        if (selected) {
+          document.getElementById("infoBox").innerHTML = `
+            <h3>${selected.title}</h3>
+            <p>${selected.description}</p>
+          `;
+        }
+      });
+    })
+
+    
+    .catch(err => console.error('Failed to load data.json:', err));
+});
+</script>
+<style>
+    body {
+    font-family: 'Segoe UI', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f7f1e3;
+  }
+  
+  .title {
+    text-align: center;
+    padding: 12px;
+    font-size: 26px;
+    background-color: #fef9e7;
+    border-bottom: 2px solid #d5bdaf;
+    color: #3b2f2f;
+  }
+  
+  #map {
+    height: 60vh;
+    width: 100%;
+  }
+  
+  #timeline {
+    height: 30vh;
+    border-top: 2px solid #ccc;
+    background-color: #fff;
+  }
+  
+  #infoBox {
+    background: #fff3cd;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    font-size: 16px;
+  }
+  
+</style>
+
+
+{% endblock %}

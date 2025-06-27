@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sanskrit Wisdom Quest</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/game.css') }}">
+</head>
+<body>
+
+  <!-- Game View (already in your game) -->
+  <div id="game-view" class="view" style="display:none;">
+    <!-- Include your game UI here -->
+    <h2>Welcome, <span id="current-username"></span>!</h2>
+    <button onclick="logout()">Logout</button>
+    <div id="game-container">
+      <!-- your game HTML here -->
+    </div>
+    <div id="badge-section">
+      <h3>Badges Earned</h3>
+      <ul id="badge-list"></ul>
+    </div>
+  </div>
+
+
+    <div class="game-container">
+        <div class="game-header">
+            <h1>Sanskrit Wisdom Quest</h1>
+            <div class="inventory">
+                <span>Artifacts Collected: <span id="artifact-count">0</span>/7</span>
+                <div class="medals">
+                    <div id="silver-medal" class="medal silver-medal" style="display: none;"></div>
+                    <div id="gold-medal" class="medal gold-medal" style="display: none;"></div>
+                    <div id="platinum-medal" class="medal platinum-medal" style="display: none;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="game-area">
+            <div class="temple-background">
+                <!-- Clickable areas for riddles -->
+                <div class="clickable-area" id="area-1" data-riddle="0" style="top: 20%; left: 15%;"></div>
+                <div class="clickable-area" id="area-2" data-riddle="1" style="top: 50%; left: 25%;"></div>
+                <div class="clickable-area" id="area-3" data-riddle="2" style="top: 30%; left: 40%;"></div>
+                <div class="clickable-area" id="area-4" data-riddle="3" style="top: 60%; left: 50%;"></div>
+                <div class="clickable-area" id="area-5" data-riddle="4" style="top: 20%; left: 65%;"></div>
+                <div class="clickable-area" id="area-6" data-riddle="5" style="top: 50%; left: 75%;"></div>
+                <div class="clickable-area" id="area-7" data-riddle="6" style="top: 40%; left: 85%;"></div>
+            </div>
+        </div>
+        <div id="riddle-modal" class="riddle-modal">
+            <div class="riddle-content">
+                <h2 id="riddle-title">Riddle</h2>
+                <p id="riddle-text"></p>
+                <div id="riddle-options" class="riddle-options"></div>
+                <button id="close-riddle" class="close-btn">Close</button>
+            </div>
+        </div>
+        <div id="feedback-modal" class="feedback-modal">
+            <div class="feedback-content">
+                <p id="feedback-message"></p>
+                <div class="medal-preview">
+                    <span class="medal-label">Next Medal:</span>
+                    <div id="feedback-medal" class="feedback-medal"></div>
+                </div>
+            </div>
+        </div>
+        <div id="celebration-modal" class="celebration-modal">
+            <div class="celebration-content">
+                <h2>Congratulations!</h2>
+                <p id="celebration-message"></p>
+                <div class="flower-blast" id="flower-blast"></div>
+            </div>
+        </div>
+        <div id="game-over" class="game-over">
+            <div class="game-over-content">
+                <h1 class="big-congrats">Big Congratulations!</h1>
+                <h2>Quest Complete!</h2>
+                <p>You've unlocked the Eternal Wisdom Scroll:</p>
+                <div class="scroll-container">
+                    <div id="final-wisdom" class="scroll-content">
+                        सर्वं विश्वेन संनादति - All resonates with the universe.
+                    </div>
+                </div>
+                <button onclick="restartGame()">Play Again</button>
+                <div class="flower-blast" id="final-flower-blast"></div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/game.js') }}"></script>
+
+    
+</body>
+</html>
+
+<script>
+
+</script>

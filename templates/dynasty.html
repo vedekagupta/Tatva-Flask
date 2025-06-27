@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+
+{% block title %}Dynasties - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/knowledge.css') }}">
+
+<div id="content">
+
+    <!-- Hero Section -->
+    <div class="hero-section">
+        <div class="hero-overlay" style= "background-image: url('https://static.toiimg.com/thumb/msid-98536980,width-1280,height-720,resizemode-4/98536980.jpg'); background-size: cover;
+    background-position: down, left;"></div>
+        <div class="hero-content">
+            <h2 class="fade-in" style="color: #042E47">"राजा धर्मस्य कारणं स धर्मो रक्षणात्मकः।<br>धर्मेणैव हि धर्मज्ञो राज्यं धर्मेण पालयेत्॥"</h2>
+            <p class="fade-in" style="color: #042E47">"The king is the protector of Dharma, and Dharma is his guiding principle. A righteous king rules through Dharma."</p>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="tab-container">
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="ancient-dynasties">Ancient Dynasties</button>
+            <button class="tab-btn" data-tab="dynasty-card">Dynasty Card</button>
+            <button class="tab-btn" data-tab="genealogy">Genealogy Trees</button>
+            <button class="tab-btn" data-tab="contributions">Cultural Contributions</button>
+        </div>
+    </div>
+
+    <!-- Tab Content -->
+    <div class="tab-content">
+
+        <!-- 1. Ancient Dynasties -->
+        <div class="tab-pane active" id="ancient-dynasties">
+            <div class="section-intro">
+                <h2>Ancient Indian Dynasties</h2>
+                <p>Explore the rise and legacy of the mighty dynasties that shaped Indian civilization.</p>
+            </div>
+
+            <div class="category-selector">
+                <button class="category-btn active" data-category="mauryan">Mauryan</button>
+                <button class="category-btn" data-category="gupta">Gupta</button>
+                <button class="category-btn" data-category="satavahana">Satavahana</button>
+                <button class="category-btn" data-category="chola">Chola</button>
+                <button class="category-btn" data-category="mughal">Mughal</button>
+                <button class="category-btn" data-category="rajput">Rajput</button>
+            </div>
+
+            <div class="texts-container">
+                <!-- Cards dynamically loaded here -->
+            </div>
+        </div>
+
+        
+
+        <!-- 3. Dynasty Card -->
+        <div class="tab-pane" id="dynasty-card">
+            <div class="section-intro">
+                <h2>Dynasty Flashcards</h2>
+                <p>Learn about dynasties using engaging and quick flashcards for memory retention.</p>
+            </div>
+
+            <div class="interactive-elements">
+                <div class="quiz-section">
+                    <h3>Dynasty Card Explorer</h3>
+                    <div id="flashcard-container">
+                        <!-- Flashcards dynamically loaded -->
+                        <div class="quiz-intro">
+                            <p>Click the button to shuffle and view dynasty cards.</p>
+                            <button id="load-dynasty-cards" class="btn">Show Dynasty Card</button>
+                        </div>
+                        <div id="card-display" class="sanskrit-word-card hidden">
+                            <!-- Card content loaded here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. Genealogy Trees -->
+        <div class="tab-pane" id="genealogy">
+            <div class="section-intro">
+                <h2>Genealogy Trees of Dynasties</h2>
+                <p>Understand lineage and succession using family trees of ancient kings and rulers.</p>
+            </div>
+
+            <div class="interactive-elements">
+                <div class="word-explorer">
+                    <h3>Select a Dynasty</h3>
+                    <div class="word-cloud">
+                        <span class="word" data-dynasty="mauryan">Mauryan</span>
+                        <span class="word" data-dynasty="gupta">Gupta</span>
+                        <span class="word" data-dynasty="chola">Chola</span>
+                        <span class="word" data-dynasty="mughal">Mughal</span>
+                    </div>
+                    <div class="word-detail">
+                        <img id="tree-image" class="interactive-image" src="" alt="Genealogy Tree" />
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Cultural Contributions -->
+        <div class="tab-pane" id="contributions">
+            <div class="section-intro">
+                <h2>Cultural Contributions of Dynasties</h2>
+                <p>Explore how different dynasties enriched art, architecture, language, and science.</p>
+            </div>
+
+            <div class="texts-container" id="contribution-cards">
+                <!-- Cards dynamically loaded -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scroll to top -->
+<button id="scroll-top" class="scroll-top-btn">↑</button>
+
+<!-- Scripts -->
+<script src="{{ url_for('static', filename='js/dynasty.js') }}"></script>
+
+<script>
+
+
+/* 3. Dynasty Flashcard Logic */
+function initFlashcards() {
+    const button = document.getElementById('load-dynasty-cards');
+    const display = document.getElementById('card-display');
+    if (!button || !display) return;
+
+    button.addEventListener('click', () => {
+        const random = dynastyFlashcards[Math.floor(Math.random() * dynastyFlashcards.length)];
+        display.innerHTML = `
+            <h3>${random.name}</h3>
+            <p class="pronunciation">${random.period}</p>
+            <div class="meaning">${random.description}</div>
+            <div class="context"><strong>Key Contribution:</strong> ${random.key}</div>
+        `;
+        display.classList.remove('hidden');
+    });
+}
+
+/* 4. Genealogy Image Switching */
+function initGenealogy() {
+    const words = document.querySelectorAll('.word');
+    const image = document.getElementById('tree-image');
+    if (!words || !image) return;
+
+    words.forEach(w => {
+        w.addEventListener('click', () => {
+            const dynasty = w.getAttribute('data-dynasty');
+            image.src = `static/images/trees/${dynasty}-tree.png`; // Example path
+            image.alt = `${dynasty} Dynasty Tree`;
+        });
+    });
+
+    image.addEventListener('click', () => {
+        image.classList.toggle('expanded');
+    });
+}
+
+
+const dynastyFlashcards = [
+    {
+        name: 'Chandragupta Maurya',
+        period: '321–297 BCE',
+        description: 'Founder of the Maurya Empire with the help of Chanakya.',
+        key: 'Unified India and established central governance.'
+    },
+    {
+        name: 'Ashoka the Great',
+        period: '268–232 BCE',
+        description: 'Expanded the empire to its peak and promoted Buddhism.',
+        key: 'Edicts of Ashoka and spread of Dhamma.'
+    },
+    // Add more...
+];
+
+</script>
+
+{% endblock %}

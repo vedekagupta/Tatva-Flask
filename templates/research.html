@@ -1,0 +1,383 @@
+{% extends 'base.html' %}
+
+{% block title %}Tatva Research{% endblock %}
+
+{% block content %}
+<div class="research-container">
+    <div class="research-header">
+        <h1>Research at Tatva</h1>
+        <p>Explore our latest research papers and initiatives</p>
+    </div>
+
+    <div class="research-filters">
+        <div class="search-box">
+            <form action="{{ url_for('research') }}" method="get">
+                <input type="text" name="search" placeholder="Search papers..." value="{{ request.args.get('search', '') }}">
+                
+
+                <button type="submit">Search</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="research-papers">
+    {% for paper in papers %}
+        <div class="paper-card" data-id="{{ paper.id }}">
+            <div class="paper-category">{{ paper.category }}</div>
+            <h2 class="paper-title">{{ paper.title }}</h2>
+            <p class="paper-authors">{{ paper.authors }}</p>
+            <p class="paper-date">Published: {{ paper.publication_date }}</p>
+            <p class="paper-preview">{{ paper.abstract|truncate(100) }}</p>
+            <button class="view-details-btn" onclick="">View Details</button>
+        </div>
+    {% else %}
+        <p>No research papers found.</p>
+    {% endfor %}
+</div>
+<div id="paperModal" class="modal" style="display:none;">
+    <div class="modal-content">
+        <span onclick="closeModal()" class="close">&times;</span>
+        <h2 id="modal-title"></h2>
+        <p><strong>Authors:</strong> <span id="modal-authors"></span></p>
+        <p><strong>Date:</strong> <span id="modal-date"></span></p>
+        <p><strong>Category:</strong> <span id="modal-category"></span></p>
+        <p id="modal-abstract"></p>
+    </div>
+</div>
+
+
+    
+</div>
+
+
+<style>
+
+/* Research Page Styles */
+.research-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.research-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.research-header h1 {
+    color: #2a5a7c;
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.research-header p {
+    color: #555;
+    font-size: 1.2rem;
+}
+
+.research-filters {
+    background-color: #f5f5f5;
+    padding: 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.search-box {
+    display: flex;
+    justify-content: center;
+}
+
+.search-box form {
+    display: flex;
+    width: 100%;
+    max-width: 800px;
+    gap: 10px;
+}
+
+.search-box input {
+    flex: 3;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-box select {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.search-box button {
+    padding: 10px 20px;
+    background-color: #2a5a7c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.search-box button:hover {
+    background-color: #1d3f57;
+}
+
+.research-papers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.paper-card {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+}
+
+.paper-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+.paper-category {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background-color: #eaf4ff;
+    color: #2a5a7c;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+.paper-title {
+    color: #2a5a7c;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+}
+
+.paper-authors {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.paper-date {
+    color: #777;
+    font-size: 0.9rem;
+    margin-bottom: 0.8rem;
+}
+
+.paper-preview {
+    color: #333;
+    margin-bottom: 1rem;
+    line-height: 1.6;
+}
+
+.view-details-btn {
+    background-color: transparent;
+    color: #2a5a7c;
+    border: 1px solid #2a5a7c;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.view-details-btn:hover {
+    background-color: #2a5a7c;
+    color: white;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.6);
+}
+
+.modal-content {
+    background-color: white;
+    margin: 10% auto;
+    padding: 2rem;
+    border-radius: 8px;
+    max-width: 800px;
+    width: 90%;
+    position: relative;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.close-modal {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #777;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #333;
+}
+
+#modal-title {
+    color: #2a5a7c;
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 2rem;
+}
+
+#modal-authors {
+    color: #555;
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    font-size: 1.1rem;
+}
+
+#modal-date {
+    color: #777;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+#modal-category {
+    display: inline-block;
+    background-color: #eaf4ff;
+    color: #2a5a7c;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+}
+
+#modal-abstract {
+    color: #333;
+    line-height: 1.8;
+    font-size: 1.1rem;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .research-container {
+        padding: 1rem;
+    }
+    
+    .search-box form {
+        flex-direction: column;
+    }
+    
+    .modal-content {
+        margin: 20% auto;
+    }
+}
+</style>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    fetch('/papers')
+        .then(response => response.json())
+        .then(data => {
+            const container = document.getElementById('papers-container');
+            data.forEach(paper => {
+                const div = document.createElement('div');
+                div.className = 'paper-card';
+                div.innerHTML = `
+                    <h3>${paper.title}</h3>
+                    <p><strong>Authors:</strong> ${paper.authors}</p>
+                    <p><strong>Date:</strong> ${paper.publication_date}</p>
+                    <p><strong>Category:</strong> ${paper.category}</p>
+                    <button onclick="readMore(${paper.id})">Read More</button>
+                `;
+                container.appendChild(div);
+            });
+        });
+});
+
+function readMore(id) {
+    fetch(`/paper/${id}`)
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('modal-title').textContent = data.title;
+            document.getElementById('modal-authors').textContent = data.authors;
+            document.getElementById('modal-date').textContent = data.publication_date;
+            document.getElementById('modal-category').textContent = data.category;
+            document.getElementById('modal-abstract').textContent = data.abstract;
+            document.getElementById('paperModal').style.display = 'block';
+        });
+}
+
+function closeModal() {
+    document.getElementById('paperModal').style.display = 'none';
+}
+// Show paper details in modal
+function showPaperDetails(paperId) {
+    fetch(`/api/research/${paperId}`)
+        .then(response => response.json())
+        .then(paper => {
+            document.getElementById('modal-title').innerText = paper.title;
+            document.getElementById('modal-authors').innerText = paper.authors;
+            document.getElementById('modal-date').innerText = `Published: ${paper.publication_date}`;
+            document.getElementById('modal-category').innerText = paper.category;
+            document.getElementById('modal-abstract').innerText = paper.abstract;
+            
+            // Show the modal
+            const modal = document.getElementById('paper-modal');
+            modal.style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error fetching paper details:', error);
+            alert('Unable to load paper details. Please try again.');
+        });
+}
+
+// Close modal when clicking on X
+document.addEventListener('DOMContentLoaded', function() {
+    const closeBtn = document.querySelector('.close-modal');
+    const modal = document.getElementById('paper-modal');
+    
+    if (closeBtn && modal) {
+        closeBtn.addEventListener('click', function() {
+            modal.style.display = 'none';
+        });
+        
+        // Close modal when clicking outside the content
+        window.addEventListener('click', function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        });
+    }
+    
+    // Add animation to research cards
+    const paperCards = document.querySelectorAll('.paper-card');
+    paperCards.forEach((card, index) => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(20px)';
+        
+        setTimeout(() => {
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            card.style.opacity = '1';
+            card.style.transform = 'translateY(0)';
+        }, 100 * index);
+    });
+});
+
+
+</script>
+
+{% endblock %}

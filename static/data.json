@@ -1,0 +1,205 @@
+{
+    "places": [
+      {
+        "name": "Takshashila",
+        "lat": 33.737,
+        "lng": 72.836,
+        "description": "Ancient university known for Ayurveda, Politics, and Grammar."
+      },
+      {
+        "name": "Nalanda",
+        "lat": 25.136,
+        "lng": 85.443,
+        "description": "One of the world's first residential universities, center for Buddhist studies."
+      },
+      {
+        "name": "Kashi (Varanasi)",
+        "lat": 25.3176,
+        "lng": 82.9739,
+        "description": "Home of Sushruta, father of surgery. Site of ancient knowledge transmission."
+      },
+      {
+        "name": "Pataliputra",
+        "lat": 25.5941,
+        "lng": 85.1376,
+        "description": "Capital of the Maurya and Gupta empires, a hub of administration and culture."
+      },
+      {
+        "name": "Dwarka",
+        "lat": 22.2392,
+        "lng": 68.9676,
+        "description": "The legendary city of Lord Krishna, believed to have been submerged in the ocean."
+      },
+      {
+        "name": "Ujjain",
+        "lat": 23.1783,
+        "lng": 75.7798,
+        "description": "Ancient city and center of learning in Astronomy and Mathematics."
+      },
+      {
+        "name": "Mathura",
+        "lat": 27.6003,
+        "lng": 77.6714,
+        "description": "Birthplace of Lord Krishna, famous for its temples and sculptures."
+      },
+      {
+        "name": "Ayodhya",
+        "lat": 26.7984,
+        "lng": 82.1997,
+        "description": "Birthplace of Lord Rama, the capital of the Kosala Kingdom."
+      },
+      {
+        "name": "Prayag (Allahabad)",
+        "lat": 25.4358,
+        "lng": 81.8463,
+        "description": "The confluence of the Ganges, Yamuna, and Sarasvati rivers, a spiritual and historical center."
+      },
+      {
+        "name": "Rajgir",
+        "lat": 25.0111,
+        "lng": 85.4299,
+        "description": "Ancient city in Bihar, associated with Buddha and Jainism."
+      },
+      {
+        "name": "Somnath",
+        "lat": 20.8932,
+        "lng": 70.0148,
+        "description": "Site of the first Jyotirlinga of Lord Shiva."
+      },
+      {
+        "name": "Rishikesh",
+        "lat": 30.0869,
+        "lng": 78.2685,
+        "description": "A center for Yoga and Vedic studies, located on the banks of the Ganges."
+      },
+      {
+        "name": "Pushkar",
+        "lat": 26.4882,
+        "lng": 74.5511,
+        "description": "Famous for its temple of Lord Brahma and the sacred Pushkar Lake."
+      },
+      {
+        "name": "Bodh Gaya",
+        "lat": 24.6959,
+        "lng": 84.9913,
+        "description": "The site where Lord Buddha attained enlightenment."
+      },
+      {
+        "name": "Madhurai",
+        "lat": 9.9197,
+        "lng": 78.1193,
+        "description": "Home to the famous Meenakshi Temple and a significant center of Tamil culture."
+      },
+      {
+        "name": "Chidambaram",
+        "lat": 11.3963,
+        "lng": 79.6981,
+        "description": "Famous for the Nataraja Temple, dedicated to Lord Shiva."
+      },
+      {
+        "name": "Kanchipuram",
+        "lat": 12.8319,
+        "lng": 79.7071,
+        "description": "Known for its historical temples and silk weaving."
+      },
+      {
+        "name": "Kanyakumari",
+        "lat": 8.0883,
+        "lng": 77.5385,
+        "description": "The southernmost tip of India, famous for its temples and natural beauty."
+      },
+      {
+        "name": "Hampi",
+        "lat": 15.3354,
+        "lng": 76.4608,
+        "description": "The ruins of the Vijayanagara Empire, a UNESCO World Heritage site."
+      },
+      {
+        "name": "Sanchi",
+        "lat": 23.4871,
+        "lng": 77.7525,
+        "description": "Known for its ancient stupas and Buddhist monuments."
+      },
+      {
+        "name": "Elora Caves",
+        "lat": 20.0208,
+        "lng": 75.1792,
+        "description": "A UNESCO World Heritage site, home to a vast complex of temples and monasteries."
+      },
+      {
+        "name": "Ajanta Caves",
+        "lat": 20.5502,
+        "lng": 75.7004,
+        "description": "Ancient Buddhist rock-cut caves known for their exquisite frescoes."
+      },
+      {
+        "name": "Tiruvannamalai",
+        "lat": 12.2235,
+        "lng": 79.0747,
+        "description": "A major pilgrimage center with the sacred Arunachaleswarar Temple."
+      },
+      {
+        "name": "Varanasi",
+        "lat": 25.3176,
+        "lng": 82.9739,
+        "description": "One of the oldest cities in the world, a significant religious center for Hindus."
+      },
+      {
+        "name": "Chola Empire Capital (Thanjavur)",
+        "lat": 10.7865,
+        "lng": 79.1362,
+        "description": "The capital of the Chola dynasty, known for its great temples and art."
+      },
+      {
+        "name": "Kolhapur",
+        "lat": 16.7054,
+        "lng": 74.2438,
+        "description": "Famous for its Mahalaxmi Temple and the Kolhapuri chappals."
+      },
+      {
+        "name": "Anuradhapura (Sri Lanka)",
+        "lat": 8.3110,
+        "lng": 80.3958,
+        "description": "A significant city for Buddhism, with many ancient ruins."
+      },
+      {
+        "name": "Kolkata (Calcutta)",
+        "lat": 22.5726,
+        "lng": 88.3639,
+        "description": "One of the cultural hubs of India, known for its colonial-era architecture."
+      },
+      {
+        "name": "Tirupati",
+        "lat": 13.6288,
+        "lng": 79.4192,
+        "description": "Famous for the Tirumala Venkateswara Temple, one of the richest pilgrimage sites."
+      },
+      {
+        "name": "Shirdi",
+        "lat": 19.7662,
+        "lng": 74.4810,
+        "description": "The home of the revered saint Sai Baba."
+      }
+    ],
+    "events": [
+      {
+        "id": 1,
+        "title": "Sushruta – Father of Surgery",
+        "start": "-0600-01-01",
+        "description": "Sushruta lived around 600 BCE and wrote the Sushruta Samhita in Kashi."
+      },
+      {
+        "id": 2,
+        "title": "Panini – Sanskrit Grammar",
+        "start": "-0500-01-01",
+        "description": "Panini composed the Ashtadhyayi, laying the foundation for Sanskrit grammar."
+      },
+      {
+        "id": 3,
+        "title": "Nalanda Flourishes",
+        "start": "0500-01-01",
+        "description": "Nalanda University becomes a global hub for Buddhist and scientific studies."
+      }
+    ]
+  }
+  

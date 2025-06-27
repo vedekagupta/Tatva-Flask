@@ -1,0 +1,352 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/knowledge.css') }}">
+<body>
+    
+    <div id="content">
+        <!-- Hero Section -->
+        <div class="hero-section">
+            <div class="hero-overlay" ></div>
+            <div class="hero-content">
+                <h2 class="fade-in">"विद्या ददाति विनयं विनयाद्याति पात्रताम्।<br>पात्रत्वाद्धनमाप्नोति धनाद्धर्मं ततः सुखम्॥"</h2>
+                <p class="fade-in">Knowledge gives humility, from humility comes worthiness, from worthiness one gets wealth, from wealth good deeds, and from that happiness.</p>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tab-container">
+            <div class="tabs">
+                <button class="tab-btn active" data-tab="ancient-texts">Ancient Texts</button>
+                <button class="tab-btn" data-tab="sages">Rishis & Munis</button>
+                <button class="tab-btn" data-tab="interactive">Interactive Learning</button>
+            </div>
+        </div>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Ancient Texts Tab -->
+            <div class="tab-pane active" id="ancient-texts">
+                <div class="section-intro">
+                    <h2>The Sacred Texts of Ancient India</h2>
+                    <p>Explore the profound wisdom contained in India's ancient literary heritage, from the Vedas to the Puranas.</p>
+                </div>
+
+                <!-- Text Categories -->
+                <div class="category-selector">
+                    <button class="category-btn active" data-category="vedas">Vedas</button>
+                    <button class="category-btn" data-category="upanishads">Upanishads</button>
+                    <button class="category-btn" data-category="puranas">Puranas</button>
+                    <button class="category-btn" data-category="vedangas">Vedangas</button>
+                    <button class="category-btn" data-category="upavedas">Upavedas</button>
+                    <button class="category-btn" data-category="itihasa">Itihasa</button>
+                </div>
+
+                <!-- Text Content Container -->
+                <div class="texts-container">
+                    <!-- This content will be loaded dynamically from texts.js -->
+                </div>
+                
+                
+                <!-- Visual Learning Section -->
+                <div class="visual-learning">
+                <h3 class="title"> Visual Knowledge Map – Explore Vedic Literature</h3>
+
+                <div class="knowledge-map">
+                    <!-- Map and Hotspots -->
+                    <div class="map-container animated-fade">
+                    <img src="{{ url_for('static', filename='images/vedicchart1.png') }}" alt="Vedic Literature Map" class="map-image" />
+                    <div class="map-hotspots">
+                    </div>
+                    </div>
+
+                    <!-- Info Box -->
+                    <div class="map-info">
+                    <h4> Click on parts of the map to learn more</h4>
+                    <div id="map-detail" class="map-detail">Select an area to view details.</div>
+                    </div>
+                </div>
+                </div>
+
+                
+
+                <style>
+                    .visual-learning {
+                    margin: 40px auto;
+                    padding: 30px;
+                    background: #fffbe6;
+                    border-radius: 16px;
+                    max-width: 1200px;
+                    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+                    border: 2px solid #f4e2d8;
+                    animation: fadeIn 1s ease-in-out;
+                    }
+
+                    .title {
+                    text-align: center;
+                    font-size: 32px;
+                    color: #4e342e;
+                    margin-bottom: 30px;
+                    font-weight: 600;
+                    }
+
+                    .knowledge-map {
+                    display: flex;
+                    flex-wrap: wrap;
+                    justify-content: center;
+                    gap: 20px;
+                    }
+
+                    .map-container {
+                    position: relative;
+                    max-width: 700px;
+                    width: 100%;
+                    transition: transform 0.3s ease;
+                    }
+                    .map-container:hover {
+                    transform: scale(1.01);
+                    }
+
+                    .map-image {
+                    width: 100%;
+                    height: auto;
+                    border-radius: 12px;
+                    border: 2px solid #d2b48c;
+                    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+                    }
+
+                    .map-hotspots .hotspot {
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    background-color: #ff9800;
+                    border: 2px solid #fff;
+                    border-radius: 50%;
+                    color: #fff;
+                    font-weight: bold;
+                    font-size: 14px;
+                    cursor: pointer;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    box-shadow: 0 0 12px rgba(0, 0, 0, 0.2);
+                    animation: pulse 2s infinite ease-in-out;
+                    transition: transform 0.3s ease, background-color 0.3s;
+                    }
+
+                    .hotspot:hover {
+                    background-color: #e65100;
+                    transform: scale(1.3);
+                    }
+
+                    .active-hotspot {
+                    background-color: #c21807 !important;
+                    }
+
+                    .animate {
+                    animation: dropIn 1s ease forwards;
+                    opacity: 0;
+                    }
+                    .delay-1 {
+                    animation-delay: 0.5s;
+                    }
+
+                    .map-info {
+                    flex: 1;
+                    min-width: 280px;
+                    padding: 20px;
+                    background: #fff3e0;
+                    border-left: 2px solid #ffcc80;
+                    border-radius: 12px;
+                    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+                    }
+
+                    .map-info h4 {
+                    font-size: 20px;
+                    color: #5d4037;
+                    margin-bottom: 16px;
+                    }
+
+                    .map-detail {
+                    font-size: 16px;
+                    background-color: #fffde7;
+                    padding: 14px 18px;
+                    border-radius: 10px;
+                    border: 1px dashed #ffb300;
+                    transition: all 0.3s ease;
+                    color: #4e342e;
+                    }
+
+                    .map-detail h5 {
+                    margin: 0 0 8px;
+                    color: #6d4c41;
+                    font-size: 18px;
+                    font-weight: 600;
+                    }
+
+                    .map-detail.slide-in {
+                    animation: slideInFromLeft 0.5s ease-out;
+                    }
+
+                    /* Animations */
+                    @keyframes pulse {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(255, 152, 0, 0.7);
+                    }
+                    70% {
+                        box-shadow: 0 0 0 12px rgba(255, 152, 0, 0);
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(255, 152, 0, 0);
+                    }
+                    }
+
+                    @keyframes fadeIn {
+                    from { opacity: 0; transform: translateY(20px); }
+                    to { opacity: 1; transform: translateY(0); }
+                    }
+
+                    @keyframes slideInFromLeft {
+                    0% { opacity: 0; transform: translateX(-40px); }
+                    100% { opacity: 1; transform: translateX(0); }
+                    }
+
+                    @keyframes dropIn {
+                    to { opacity: 1; transform: translateY(0); }
+                    from { opacity: 0; transform: translateY(-20px); }
+                    }
+
+                    @media (max-width: 768px) {
+                    .knowledge-map {
+                        flex-direction: column;
+                        align-items: center;
+                    }
+                    .map-info {
+                        margin-top: 20px;
+                        border-left: none;
+                        border-top: 2px solid #ffcc80;
+                    }
+                    }
+                    </style>
+
+                <!-- JS for Hotspots -->
+                <script src="{{ url_for('static', filename='js/map.js') }}"></script>
+
+            </div>
+
+            
+            <!-- Sages Tab -->
+            <div class="tab-pane" id="sages">
+                <div class="section-intro">
+                    <h2>Rishis and Munis of Ancient India</h2>
+                    <p>"Great rishis and munis were the torchbearers of wisdom, illuminating the path of dharma, knowledge, and spiritual awakening for all of humanity."</p>
+                </div>
+
+                <!-- Search and Filter -->
+                <div class="search-filter">
+                    <div class="search-box">
+                        <input type="text" id="sage-search" placeholder="Search for a sage...">
+                        <button id="search-btn"><i class="search-icon">🔍</i></button>
+                    </div>
+                    <div class="filter-options">
+                        <select id="filter-contribution">
+                            <option value="">Filter by Contribution</option>
+                            <option value="Vedas">Vedas</option>
+                            <option value="Medicine">Medicine & Ayurveda</option>
+                            <option value="Philosophy">Philosophy</option>
+                            <option value="Epics">Epic Literature</option>
+                            <option value="Astrology">Astrology & Astronomy</option>
+                        </select>
+                        <select id="filter-era">
+                            <option value="">Filter by Era</option>
+                            <option value="Vedic">Vedic Period</option>
+                            <option value="Epic">Epic Period</option>
+                            <option value="Puranic">Puranic Period</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Sage Gallery -->
+                <div class="sage-gallery">
+                    <!-- This content will be loaded dynamically from sages.js -->
+                </div>
+
+                <!-- Sage Detail Modal -->
+                <div id="sage-modal" class="modal">
+                    <div class="modal-content">
+                        <span class="close-modal">&times;</span>
+                        <div class="sage-detail">
+                            <!-- Sage details will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Learning Tab -->
+            <div class="tab-pane" id="interactive">
+                <div class="section-intro">
+                    <h2>Interactive Learning Center</h2>
+                    <p>Engage with ancient Sanskrit knowledge through interactive elements and tests.</p>
+                </div>
+
+                <div class="interactive-elements">
+                    <div class="quiz-section">
+                        <h3>Interactive Game - Knowledge</h3>
+                        <div id="quiz-container">
+                            <div class="quiz-intro">
+                                <p>Challenge yourself with questions about ancient Sanskrit texts and sages.</p>
+                                <a href="{{ url_for('game') }}" class="btn">Start Game</a>
+
+                            </div>                           
+                        </div>
+                    </div>
+                    <!-- Quiz Section -->
+                    <div class="quiz-section">
+                        <h3>Test Your Knowledge</h3>
+                        <div id="quiz-container">
+                            <div class="quiz-intro">
+                                <p>Challenge yourself with questions about ancient Sanskrit texts and sages.</p>
+                                <button id="start-quiz" class="btn">Start Quiz</button>
+                            </div>
+                            <div class="quiz-questions hidden">
+                                <!-- Questions will be loaded dynamically -->
+                            </div>
+                            <div class="quiz-results hidden">
+                                <!-- Results will appear here -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sanskrit Word Explorer -->
+                    <div class="word-explorer">
+                        <h3>Sanskrit Word Explorer</h3>
+                        <p>Explore the meanings and origins of important Sanskrit concepts</p>
+                        <div class="word-cloud">
+                            <!-- Words will be added via JavaScript -->
+                        </div>
+                        <div class="word-detail">
+                            <p>Click on a word to learn its meaning and significance</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- Scroll to top button -->
+    <button id="scroll-top" class="scroll-top-btn">↑</button>
+
+    <script src="{{ url_for('static', filename='js/knowledge.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/text.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/sages.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/quiz.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/wordcloud.js') }}"></script>
+
+    
+</body>
+
+
+{% endblock %}

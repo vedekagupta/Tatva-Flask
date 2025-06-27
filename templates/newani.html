@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tatva - Eternal Scroll of Sanskrit Wisdom</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700&display=swap" rel="stylesheet">
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+        const exploreBtn = document.getElementById('explore-btn');
+        if (exploreBtn) {
+            exploreBtn.addEventListener('click', () => {
+                window.location.href = '/index';
+            });
+        }
+    });
+        document.addEventListener('DOMContentLoaded', () => {
+            // Enlighten effect
+            setTimeout(() => {
+                document.body.classList.add('enlightened');
+            }, 2000);
+
+            // Toggle more content
+            const exploreBtn = document.getElementById('explore-btn');
+            const moreContent = document.getElementById('more-content');
+            if (exploreBtn && moreContent) {
+                exploreBtn.addEventListener('click', () => {
+                    moreContent.classList.toggle('visible');
+                });
+            }
+
+            // Auto-scroll vertical (scroll-container)
+            const scrollContainer = document.querySelector('.scroll-container');
+            setInterval(() => {
+                if (scrollContainer.scrollTop + scrollContainer.clientHeight >= scrollContainer.scrollHeight) {
+                    scrollContainer.scrollTop = 0;
+                } else {
+                    scrollContainer.scrollTop += 1;
+                }
+            }, 20);
+
+            // Auto-scroll horizontal (timeline)
+            const timeline = document.querySelector('.timeline');
+            setInterval(() => {
+                if (timeline.scrollLeft + timeline.clientWidth >= timeline.scrollWidth) {
+                    timeline.scrollLeft = 0;
+                } else {
+                    timeline.scrollLeft += 1;
+                }
+            }, 20);
+        });
+</script>
+
+</head>
+<body>
+    
+    <div class="scroll-container">
+        <div class="scroll">
+            <div class="scroll-content">
+                <div class="intro-text">तत्व-धारा</div>
+                <div class="sub-text">रामायणं पुनर्जननं संस्कृतं संरक्षणं</div>
+                <div class="welcome-section">
+                    <h2 class="welcome-title">Welcome to Sanskrit Heritage</h2>
+                    
+                </div>
+                <div class="virtual-tour">
+                    <h2 class="tour-title">A Virtual Tour of Indian Ancient History</h2>
+                    <div class="timeline-wrapper">
+                        <div class="timeline">
+                            <!-- 7 milestones -->
+                            <div class="timeline-item">
+                                <img src="static\images\satyug.jpg" alt="Vedas" class="timeline-image">
+                                <p>The Satya Yug</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\tretayug.jpg" alt="Ramayana" class="timeline-image">
+                                <p>The Treta Yug</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\dwaparyug.jpg" alt="Ashoka" class="timeline-image">
+                                <p>The Dwapar Yug</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\indusvalley.jpg" alt="Gupta" class="timeline-image">
+                                <p>The Indus Valley Civilization</p>
+                            </div>
+                            <div class="timeline-item">
+
+                            <img src="static\images\vedicperiod.jpg" alt="Milestone 5" class="timeline-image">
+                                <p>The Vedic Period</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\southendynasty.jpg" alt="Milestone 6" class="timeline-image">
+                                <p>The Maurya and Ashoka Period</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\guptagolden.jpg" alt="Milestone 7" class="timeline-image">
+                                <p>The Gupta Golden Age</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\dwaparyug.jpg" alt="Milestone 7" class="timeline-image">
+                                <p>The South Indian Dynasties</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\nalanda.jpg" alt="Milestone 7" class="timeline-image">
+                                <p>The Nalanda, Vikramshila – Ancient Education</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\culture.jpg" alt="Milestone 7" class="timeline-image">
+                                <p>Temples, Art, Language & Culture</p>
+                            </div>
+                            <div class="timeline-item">
+                                <img src="static\images\modern.jpg" alt="Milestone 7" class="timeline-image">
+                                <p>Impact on Modern India</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="symbols">
+                    <div class="symbol bow"></div>
+                    <div class="symbol conch"></div>
+                    <div class="symbol lotus"></div>
+                </div>
+            </div>
+            <div class="explore-button-wrapper">
+            <button id="explore-btn" class="explore-button">Explore More</button>
+            </div>
+
+        </div>
+    </div>
+</body>
+</html>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.explore-button-wrapper {
+    text-align: center;
+    
+    margin-bottom: 50px;
+}
+
+.explore-button {
+    background-color: lightgoldenrodyellow;
+    color: #022456;
+    padding: 12px 24px;
+    font-size: 18px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+
+  body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Noto Sans Devanagari', sans-serif;
+
+    background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1950&q=80');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+
+    overflow: hidden;
+    position: relative;
+  }
+
+
+
+  
+  .scroll-container {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, #f5e6c7cc 0%, #d4c4a3cc 100%); /* semi-transparent */
+    padding: 10px;
+    box-sizing: border-box;
+  }
+
+  .scroll-content {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+/* Unrolling Scroll */
+.scroll {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%;
+    max-width: 800px;
+    height: 0;
+    background: linear-gradient(to bottom, #f5e6c7 0%, #d4c4a3 100%);
+    border-left: 5px solid #8b4513;
+    border-right: 5px solid #8b4513;
+    border-bottom: 5px solid #8b4513;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    animation: unrollScroll 5s ease-in-out forwards;
+    overflow-y: auto;
+}
+
+@keyframes unrollScroll {
+    0% { height: 0; }
+    100% { height: 90vh; }
+}
+
+/* Scroll Content */
+.scroll-content {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px;
+    opacity: 0;
+    animation: revealContent 5s ease-in-out forwards;
+    animation-delay: 1s;
+}
+
+@keyframes revealContent {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+/* Text */
+.intro-text {
+    font-size: 4.5rem;
+    font-weight: bold;
+    color: #8b4513;
+    text-shadow: 0 0 15px #ffd700, 0 0 30px #ff4500;
+    animation: shimmerText 4s ease-in-out infinite;
+}
+
+.sub-text {
+    font-size: 2rem;
+    margin-top: 20px;
+    color: #8b4513;
+    text-shadow: 0 0 10px #ffd700, 0 0 20px #ff4500;
+    animation: shimmerText 4s ease-in-out infinite;
+}
+
+@keyframes shimmerText {
+    0%, 100% { text-shadow: 0 0 15px #ffd700, 0 0 30px #ff4500; }
+    50% { text-shadow: 0 0 25px #ff4500, 0 0 50px #ffd700; }
+}
+
+/* Welcome Section */
+.welcome-section {
+    margin-top: 30px;
+    text-align: center;
+    width: 100%;
+    opacity: 0;
+    animation: revealContent 5s ease-in-out forwards;
+    animation-delay: 2s;
+}
+
+.welcome-title {
+    font-size: 2rem;
+    color: #8b4513;
+    margin-bottom: 15px;
+}
+
+.welcome-text {
+    font-size: 1.2rem;
+    color: #5c4033;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+/* Explore Now Button */
+.explore-btn {
+    padding: 10px 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #ffffff;
+    background: linear-gradient(45deg, #ff4500, #ffd700);
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    box-shadow: 0 0 10px #ff4500;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.explore-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #ffd700;
+}
+
+/* More Content (Revealed on Click) */
+.more-content {
+    margin-top: 20px;
+    padding: 15px;
+    background: linear-gradient(to bottom, #e6d5b8, #c9b692);
+    border: 2px solid #8b4513;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 600px;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, opacity 0.5s ease;
+}
+
+.more-content.visible {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.more-content p {
+    font-size: 1.1rem;
+    color: #5c4033;
+    line-height: 1.5;
+    animation: slideInText 1s ease-in-out forwards;
+}
+
+@keyframes slideInText {
+    0% { transform: translateY(-20px); opacity: 0; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Virtual Tour Section */
+.virtual-tour {
+    margin-top: 40px;
+    width: 100%;
+    text-align: center;
+    opacity: 0;
+    animation: revealContent 5s ease-in-out forwards;
+    animation-delay: 3s;
+}
+
+.tour-title {
+    font-size: 1.8rem;
+    color: #8b4513;
+    margin-bottom: 20px;
+}
+
+/* Timeline Wrapper */
+.timeline-wrapper {
+    width: 100%;
+    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-y: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on touch devices */
+}
+
+/* Custom Scrollbar Styling */
+.timeline-wrapper::-webkit-scrollbar {
+    height: 8px; /* Height of the horizontal scrollbar */
+}
+
+.timeline-wrapper::-webkit-scrollbar-track {
+    background: #d4c4a3; /* Match scroll background */
+    border-radius: 10px;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb {
+    background: linear-gradient(45deg, #ff4500, #ffd700); /* Match theme colors */
+    border-radius: 10px;
+}
+
+.timeline-wrapper::-webkit-scrollbar-thumb:hover {
+    background: #ff8c00; /* Slightly darker on hover */
+}
+
+/* Timeline */
+.timeline {
+    display: flex;
+    width: calc(250px * 7); /* 7 items, each 250px wide */
+    padding-bottom: 10px; /* Space for scrollbar */
+}
+
+/* Timeline Items */
+.timeline-item {
+    flex: 0 0 250px;
+    margin-right: 20px;
+    text-align: center;
+    opacity: 0.6;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.timeline-item:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.timeline-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #ffd700;
+    box-shadow: 0 0 15px #ff4500;
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.timeline-item:hover .timeline-image {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px #ffd700;
+}
+
+.timeline-item p {
+    font-size: 1rem;
+    color: #5c4033;
+    margin-top: 10px;
+}
+
+.timeline-wrapper {
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.timeline {
+    display: flex;
+    gap: 20px;
+    scroll-behavior: smooth;
+}
+
+/* Symbols */
+.symbols {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 40px;
+}
+
+.symbol {
+    width: 60px;
+    height: 60px;
+    opacity: 0;
+    animation: revealSymbol 5s ease-in-out forwards;
+    animation-delay: 4s;
+}
+
+/* Rama's Bow (CSS-based) */
+.bow {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    border: 5px solid #ffd700;
+    border-radius: 50%;
+    transform: rotate(45deg);
+    animation: pulseSymbol 3s ease-in-out infinite;
+}
+
+.bow::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 5px;
+    background: #ffd700;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+/* Krishna's Conch (CSS-based) */
+.conch {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: #ffd700;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    animation: pulseSymbol 3s ease-in-out infinite;
+}
+
+.conch::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 30px;
+    height: 30px;
+    background: #ff4500;
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    transform: translate(-50%, -50%);
+}
+
+/* Lotus (CSS-based) */
+.lotus {
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background: transparent;
+    animation: pulseSymbol 3s ease-in-out infinite;
+}
+
+.lotus::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 40px 40px 0 0;
+    transform: translate(-50%, -50%) rotate(0deg);
+}
+
+.lotus::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 40px;
+    height: 20px;
+    background: #ffd700;
+    border-radius: 40px 40px 0 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+}
+
+@keyframes revealSymbol {
+    0% { opacity: 0; transform: scale(0.5); }
+    100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes pulseSymbol {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 10px #ffd700; }
+    50% { transform: scale(1.1); box-shadow: 0 0 20px #ff4500; }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .intro-text {
+        font-size: 3rem;
+    }
+    .sub-text {
+        font-size: 1.4rem;
+    }
+    .scroll {
+        width: 90%;
+    }
+    .welcome-title {
+        font-size: 1.6rem;
+    }
+    .welcome-text {
+        font-size: 1rem;
+    }
+    .explore-btn {
+        font-size: 1rem;
+        padding: 8px 20px;
+    }
+    .more-content p {
+        font-size: 0.9rem;
+    }
+    .tour-title {
+        font-size: 1.4rem;
+    }
+    .timeline {
+        width: calc(200px * 7); /* Adjust for smaller items */
+    }
+    .timeline-item {
+        flex: 0 0 200px;
+    }
+    .timeline-image {
+        width: 120px;
+        height: 120px;
+    }
+    .timeline-item p {
+        font-size: 0.9rem;
+    }
+    .symbol {
+        width: 50px;
+        height: 50px;
+    }
+}
+
+@media (max-width: 480px) {
+    .intro-text {
+        font-size: 2rem;
+    }
+    .sub-text {
+        font-size: 1.1rem;
+    }
+    .scroll {
+        width: 95%;
+    }
+    .welcome-title {
+        font-size: 1.2rem;
+    }
+    .welcome-text {
+        font-size: 0.9rem;
+    }
+    .explore-btn {
+        font-size: 0.9rem;
+        padding: 6px 15px;
+    }
+    .more-content p {
+        font-size: 0.8rem;
+    }
+    .tour-title {
+        font-size: 1.2rem;
+    }
+    .timeline {
+        width: calc(150px * 7); /* Adjust for smaller items */
+    }
+    .timeline-item {
+        flex: 0 0 150px;
+    }
+    .timeline-image {
+        width: 100px;
+        height: 100px;
+    }
+    .timeline-item p {
+        font-size: 0.8rem;
+    }
+    .symbol {
+        width: 40px;
+        height: 40px;
+    }
+}
+</style>

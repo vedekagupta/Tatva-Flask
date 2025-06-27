@@ -1,0 +1,24 @@
+{
+  "vedas": [
+    {
+      "id": "rigveda",
+      "title": "Rigveda",
+      "description": "The oldest Veda composed of hymns dedicated to various deities.",
+      "image": "/static/images/samaveda.jpg"
+    },
+    {
+      "id": "samaveda",
+      "title": "Samaveda",
+      "description": "A collection of melodies and chants.",
+      "image": "./images/samaveda.jpg"
+    }
+  ],
+  "upanishads": [
+    {
+      "id": "isha",
+      "title": "Isha Upanishad",
+      "description": "Discusses the nature of reality and self.",
+      "image": "/static/images/isha.jpg"
+    }
+  ]
+}

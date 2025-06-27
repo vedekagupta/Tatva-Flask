@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tatva | Interactive Ancient Map</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Roboto&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Roboto', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(to bottom, #f5f0e1, #e0d8c3);
+      overflow-x: hidden;
+    }
+
+    header {
+      background: url('https://media.gettyimages.com/id/1481385641/video/earth-rotation.jpg?s=640x640&k=20&c=Sf9yHgAw2rVzyXCZ4h2k__x23Zf8wAJ2xGYPLdV79Q0=') no-repeat center center/cover;
+      height: 60vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      position: relative;
+    }
+
+    header::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.6);
+      top: 0;
+      left: 0;
+    }
+
+    header h1 {
+      font-size: 3.5rem;
+      z-index: 1;
+      font-family: 'Playfair Display', serif;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      z-index: 1;
+      margin-top: 1rem;
+    }
+
+    .map-switcher {
+      margin: 2rem auto;
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .map-switcher button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      background: #9c6644;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .map-switcher button:hover {
+      background: #7a4c31;
+    }
+
+    #map {
+      height: 70vh;
+      width: 90%;
+      margin: 0 auto 2rem auto;
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background: #333;
+      color: #fff;
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+</head>
+<body>
+  <header>
+    <h1>Interactive Maps of Ancient Bharat</h1>
+    <p>Explore sacred places, dynasties, universities, and temples from ancient India</p>
+  </header>
+
+  <div class="map-switcher">
+    <button onclick="loadMap('jyotirling')">Jyotirlings</button>
+    <button onclick="loadMap('shaktipeeth')">Shaktipeeth</button>
+    <button onclick="loadMap('universities')">Ancient Universities</button>
+    <button onclick="loadMap('dynasties')">Dynasties</button>
+  </div>
+
+  <div id="map"></div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script>
+    let map;
+    const maps = {
+      jyotirling: [
+        { name: "Somnath", lat: 20.888, lng: 70.401, description: "First Jyotirlinga - Somnath in Gujarat." },
+        { name: "Mallikarjuna", lat: 15.881, lng: 78.867, description: "Located in Srisailam, Andhra Pradesh." },
+        { name: "Mahakaleshwar", lat: 23.1765, lng: 75.7885, description: "Situated in Ujjain, Madhya Pradesh." },
+        { name: "Omkareshwar", lat: 22.2411, lng: 76.1511, description: "Located on Mandhata island in the Narmada River, MP." },
+        { name: "Kedarnath", lat: 30.7352, lng: 79.0669, description: "Located in the Himalayas, Uttarakhand." },
+        { name: "Bhimashankar", lat: 19.071, lng: 73.553, description: "Situated in Maharashtra." },
+        { name: "Kashi Vishwanath", lat: 25.3109, lng: 83.0095, description: "Famous Jyotirlinga in Varanasi, Uttar Pradesh." },
+        { name: "Trimbakeshwar", lat: 19.9421, lng: 73.5292, description: "Located in Nashik, Maharashtra." },
+        { name: "Vaidyanath", lat: 24.037, lng: 86.455, description: "Deoghar, Jharkhand (some consider Parli too)." },
+        { name: "Nageshwar", lat: 22.2378, lng: 69.1391, description: "Near Dwarka, Gujarat." },
+        { name: "Rameshwaram", lat: 9.2882, lng: 79.3129, description: "Southernmost Jyotirlinga in Tamil Nadu." },
+        { name: "Grishneshwar", lat: 19.8762, lng: 75.1772, description: "Located near Ellora, Maharashtra." }
+    ],
+
+    shaktipeeth: [
+        { name: "Kamakhya", lat: 26.163, lng: 91.705, description: "Yoni of Sati fell here - Assam." },
+        { name: "Kalka", lat: 28.687, lng: 77.236, description: "Mouth of Sati fell here - Delhi." },
+        { name: "Jwalamukhi", lat: 31.875, lng: 76.317, description: "Tongue of Sati fell here - Himachal Pradesh." },
+        { name: "Vishalakshi", lat: 25.308, lng: 83.007, description: "Earring of Sati fell here - Varanasi, UP." },
+        { name: "Tara Tarini", lat: 19.306, lng: 84.798, description: "Breasts of Sati fell here - Odisha." },
+        { name: "Saptashrungi", lat: 20.397, lng: 73.913, description: "Arms of Sati fell here - Maharashtra." },
+        { name: "Katyayani", lat: 28.659, lng: 77.216, description: "Back of Sati - Vrindavan, UP." },
+        { name: "Sharada Peeth", lat: 34.616, lng: 74.154, description: "Brain of Sati - Neelum Valley (Pak-admin Kashmir)." },
+        { name: "Hinglaj Mata", lat: 25.509, lng: 65.479, description: "Bramharandhra fell here - Balochistan, Pakistan." },
+        { name: "Kanyakumari", lat: 8.088, lng: 77.538, description: "Back fell here - Tamil Nadu." },
+        { name: "Chhinnamasta", lat: 23.655, lng: 85.589, description: "Neck of Sati - Jharkhand." },
+        { name: "Bahula", lat: 23.308, lng: 87.248, description: "Left arm fell here - West Bengal." },
+        { name: "Bhairavi", lat: 21.05, lng: 86.49, description: "Forehead fell here - Odisha." },
+        { name: "Brahmaramba", lat: 15.875, lng: 78.865, description: "Located with Mallikarjuna - Andhra Pradesh." },
+        { name: "Kalmadhav", lat: 24.023, lng: 81.659, description: "Left buttock fell here - Madhya Pradesh." },
+        { name: "Manikarnika", lat: 25.308, lng: 83.009, description: "Earring fell here - Varanasi, UP." },
+        { name: "Mahalakshmi", lat: 16.832, lng: 74.573, description: "Face fell here - Kolhapur, Maharashtra." },
+        { name: "Amarnath", lat: 34.208, lng: 75.502, description: "Throat fell here - Jammu & Kashmir." },
+        { name: "Alopi Devi", lat: 25.435, lng: 81.833, description: "Finger fell here - Prayagraj, UP." },
+        { name: "Ujjaini", lat: 23.176, lng: 75.788, description: "Elbow fell here - Madhya Pradesh." },
+        { name: "Guhyeshwari", lat: 27.710, lng: 85.318, description: "Hips fell here - Kathmandu, Nepal." },
+        { name: "Jayanti", lat: 26.714, lng: 89.625, description: "Left thigh - West Bengal (near Bhutan border)." },
+        { name: "Purnagiri", lat: 29.108, lng: 80.112, description: "Navel fell here - Uttarakhand." },
+        { name: "Mahalaya", lat: 22.525, lng: 88.351, description: "Toes fell here - West Bengal." },
+        { name: "Mithila", lat: 26.368, lng: 86.080, description: "Left shoulder - Bihar." },
+        { name: "Ratnavali", lat: 22.012, lng: 88.510, description: "Right shoulder - West Bengal." },
+        { name: "Janakpur", lat: 26.732, lng: 85.925, description: "Chest - Nepal." },
+        { name: "Attahas", lat: 23.616, lng: 87.533, description: "Lips - West Bengal." },
+        { name: "Yogadya", lat: 23.165, lng: 88.891, description: "Great toe - West Bengal." },
+        { name: "Kireet", lat: 23.333, lng: 88.933, description: "Crown - Bangladesh (border region)." },
+        { name: "Chandranath", lat: 22.469, lng: 91.983, description: "Right arm - Bangladesh." },
+        { name: "Jasore", lat: 23.168, lng: 89.212, description: "Palms - Bangladesh." }
+        // Add more if needed for a full 51
+        ],
+      universities: [
+        {
+            name: "Nalanda",
+            lat: 25.1357,
+            lng: 85.4436,
+            description: "World-renowned Mahavihara in Bihar, active from 5th to 12th century CE."
+        },
+        {
+            name: "Takshashila",
+            lat: 33.737,
+            lng: 72.838,
+            description: "One of the oldest universities (7th century BCE) in present-day Pakistan."
+        },
+        {
+            name: "Vikramashila",
+            lat: 25.4052,
+            lng: 87.0373,
+            description: "Established by Dharmapala in Bihar; known for Tantric Buddhism."
+        },
+        {
+            name: "Valabhi",
+            lat: 21.7765,
+            lng: 72.2070,
+            description: "Western Indian university in Gujarat; center of Hinayana Buddhism."
+        },
+        {
+            name: "Pushpagiri",
+            lat: 20.8367,
+            lng: 84.1034,
+            description: "Ancient university in Odisha; rivaled Nalanda and Takshashila."
+        },
+        {
+            name: "Somapura Mahavihara",
+            lat: 25.0340,
+            lng: 88.9748,
+            description: "Now in Bangladesh; a UNESCO site built by Dharmapala of Pala dynasty."
+        },
+        {
+            name: "Odantapuri",
+            lat: 25.2116,
+            lng: 85.5176,
+            description: "Founded by Gopala of the Pala dynasty in Bihar, near Nalanda."
+        },
+        {
+            name: "Jagaddala",
+            lat: 25.7500,
+            lng: 88.9167,
+            description: "Bengal-based Mahavihara founded by King Ramapala."
+        },
+        {
+            name: "Sharada Peeth",
+            lat: 34.6167,
+            lng: 74.1542,
+            description: "Famous Sanskrit learning center in Kashmir, now in PoK."
+        },
+        {
+            name: "Kanchipuram University",
+            lat: 12.8342,
+            lng: 79.7036,
+            description: "Southern Vedic learning center in Tamil Nadu."
+        },
+        {
+            name: "Madurai College",
+            lat: 9.9252,
+            lng: 78.1198,
+            description: "Center for Tamil Sangam literature and logic in Tamil Nadu."
+        },
+        {
+            name: "Mithila University",
+            lat: 26.3680,
+            lng: 86.0806,
+            description: "Famous for Nyaya Shastra and logic in Bihar."
+        },
+        {
+            name: "Navadwipa University",
+            lat: 23.4087,
+            lng: 88.3656,
+            description: "Renowned for Navya Nyaya philosophy, in West Bengal."
+        },
+        {
+            name: "Ujjain University",
+            lat: 23.1765,
+            lng: 75.7885,
+            description: "Known for astronomy and mathematics; linked to Varahamihira."
+        },
+        {
+            name: "Bhoj Shala",
+            lat: 22.3246,
+            lng: 75.5804,
+            description: "Founded by Raja Bhoja in Dhar, MP; Sanskrit and Shaiva learning."
+        },
+        {
+            name: "Pataliputra Learning Centre",
+            lat: 25.6110,
+            lng: 85.1440,
+            description: "Mauryan capital and intellectual hub of the ancient world."
+        }
+    ],
+
+      dynasties: [
+        // NORTH & CENTRAL INDIA
+        { name: "Mauryan Empire", lat: 25.611, lng: 85.144, description: "Capital: Pataliputra (modern Patna), unified most of India under Ashoka." },
+        { name: "Gupta Empire", lat: 25.447, lng: 86.139, description: "Capital: Pataliputra; known as the Golden Age of India." },
+        { name: "Kushan Empire", lat: 34.006, lng: 71.535, description: "Capital: Purushapura (modern Peshawar), Indo-Greek-Buddhist fusion." },
+        { name: "Shunga Dynasty", lat: 24.592, lng: 81.303, description: "Capital: Vidisha (MP); post-Mauryan Brahminical rule." },
+        { name: "Harsha Empire", lat: 27.566, lng: 77.674, description: "Capital: Thanesar, later Kannauj; Harshavardhana's rule in 7th century." },
+        { name: "Rashtrakuta Dynasty", lat: 17.399, lng: 76.561, description: "Capital: Manyakheta; ruled Deccan and parts of North." },
+        { name: "Paramara Dynasty", lat: 22.597, lng: 75.757, description: "Capital: Dhara (MP); promoted Sanskrit literature and learning." },
+        { name: "Chandela Dynasty", lat: 24.851, lng: 79.922, description: "Capital: Khajuraho (MP); known for temples and art." },
+        { name: "Tomar Dynasty", lat: 28.613, lng: 77.209, description: "Capital: Delhi (Lal Kot); ruled before Prithviraj Chauhan." },
+
+        // SOUTH INDIA
+        { name: "Chola Empire", lat: 10.7905, lng: 78.7047, description: "Capital: Thanjavur; known for naval power and temples." },
+        { name: "Chera Dynasty", lat: 10.849, lng: 76.271, description: "Capital: Vanchi (Kerala); ancient Tamil dynasty." },
+        { name: "Pandya Dynasty", lat: 9.919, lng: 78.119, description: "Capital: Madurai; patrons of Tamil Sangam literature." },
+        { name: "Satavahana Dynasty", lat: 17.973, lng: 79.594, description: "Capital: Amaravati & Pratishthana (Paithan); Deccan rulers." },
+        { name: "Vijayanagara Empire", lat: 15.335, lng: 76.460, description: "Capital: Hampi; famous for prosperity and art." },
+        { name: "Western Ganga Dynasty", lat: 12.305, lng: 76.655, description: "Capital: Talakad (Karnataka); Jain patrons." },
+        { name: "Kadamba Dynasty", lat: 15.469, lng: 74.985, description: "Capital: Banavasi (Karnataka); early Kannada kingdom." },
+        { name: "Kakatiya Dynasty", lat: 17.978, lng: 79.594, description: "Capital: Warangal (Telangana); known for fort and temples." },
+
+        // EAST INDIA
+        { name: "Pala Dynasty", lat: 25.135, lng: 85.443, description: "Capital: Gaur & Nalanda; Buddhist rulers of Bengal & Bihar." },
+        { name: "Sena Dynasty", lat: 23.810, lng: 90.412, description: "Capital: Vikrampur (Bangladesh); successors of the Palas." },
+        { name: "Kalinga Dynasty", lat: 20.270, lng: 85.833, description: "Capital: Kalinganagara (Odisha); known from Ashokan war." },
+        { name: "Eastern Ganga Dynasty", lat: 19.806, lng: 85.834, description: "Capital: Kalinganagara; built Konark Sun Temple." },
+
+        // NORTHEAST INDIA
+        { name: "Ahom Dynasty", lat: 26.745, lng: 94.202, description: "Capital: Sivasagar (Assam); ruled over 600 years." },
+        { name: "Tripura Manikya Dynasty", lat: 23.835, lng: 91.282, description: "Capital: Udaipur; ancient rulers of Tripura." },
+        { name: "Kamarupa Kingdom", lat: 26.144, lng: 91.736, description: "Capital: Pragjyotishpura (modern Guwahati); early Hindu kingdom." },
+
+        // WEST INDIA
+        { name: "Solanki Dynasty", lat: 23.022, lng: 72.571, description: "Capital: Anhilwad Patan (Gujarat); patrons of Sun Temple, Modhera." },
+        { name: "Rajput Guhilot Dynasty", lat: 24.583, lng: 73.683, description: "Capital: Chittorgarh; Mewar dynasty." },
+        { name: "Yadava Dynasty", lat: 19.876, lng: 75.343, description: "Capital: Devagiri (Daulatabad), rulers of Maharashtra." }
+        ]
+    };
+
+    function loadMap(type) {
+      if (map) map.remove();
+
+      map = L.map('map').setView([22.5937, 78.9629], 5);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      maps[type].forEach(place => {
+        const marker = L.marker([place.lat, place.lng]).addTo(map);
+        marker.bindPopup(`<b>${place.name}</b><br>${place.description}`).openPopup();
+      });
+    }
+
+    // Load default map
+    loadMap('jyotirling');
+  </script>
+</body>
+
+{% endblock %}

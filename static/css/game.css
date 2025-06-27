@@ -1,0 +1,638 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans Devanagari', sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #4b2e1e, #d4a017, #ff5e00);
+    background-size: 200%;
+    animation: gradientShift 15s ease infinite;
+    overflow: hidden;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.game-container {
+    width: 800px;
+    height: 600px;
+    background: linear-gradient(to bottom, #e8d5b5 0%, #c5a880 100%);
+    border: 8px solid #d4a017;
+    border-radius: 15px;
+    box-shadow: 0 0 30px rgba(212, 160, 23, 0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+.game-header {
+    padding: 15px;
+    text-align: center;
+    background: rgba(212, 160, 23, 0.1);
+    border-bottom: 4px solid #d4a017;
+}
+
+.game-header h1 {
+    font-size: 2rem;
+    color: #4b2e1e;
+    text-shadow: 0 0 10px #ff5e00;
+    letter-spacing: 2px;
+}
+
+.inventory {
+    margin-top: 10px;
+    font-size: 1.2rem;
+    color: #4b2e1e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.medals {
+    display: flex;
+    gap: 15px;
+}
+
+.medal {
+    width: 40px;
+    height: 40px;
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(212, 160, 23, 0.2);
+    box-shadow: 0 0 10px rgba(212, 160, 23, 0.5);
+    animation: shimmer 2s infinite, glowMedal 1.5s infinite;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.medal:hover {
+    transform: scale(1.1);
+}
+
+.silver-medal::before {
+    content: "🥈";
+}
+
+.gold-medal::before {
+    content: "🥇";
+}
+
+.platinum-medal::before {
+    content: "🏆";
+}
+
+@keyframes shimmer {
+    0% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+    100% { filter: brightness(1); }
+}
+
+@keyframes glowMedal {
+    0% { box-shadow: 0 0 10px rgba(212, 160, 23, 0.5); }
+    50% { box-shadow: 0 0 20px rgba(212, 160, 23, 0.8); }
+    100% { box-shadow: 0 0 10px rgba(212, 160, 23, 0.5); }
+}
+
+.game-area {
+    width: 100%;
+    height: calc(100% - 80px);
+    position: relative;
+    overflow: hidden;
+}
+
+.temple-background {
+    width: 100%;
+    height: 100%;
+    background: url('https://via.placeholder.com/800x600?text=Temple+Sanskrit') no-repeat center;
+    background-size: cover;
+    position: relative;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.7);
+}
+
+.clickable-area {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    background: rgba(255, 215, 0, 0.3);
+    border-radius: 50%;
+    border: 2px solid #d4a017;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.clickable-area:hover {
+    background: rgba(255, 215, 0, 0.6);
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(255, 215, 0, 0.8);
+}
+
+.clickable-area.found {
+    background: rgba(75, 46, 30, 0.5);
+    border-color: #4b2e1e;
+    cursor: default;
+    box-shadow: none;
+    transform: scale(1);
+}
+
+.riddle-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #4b2e1e, #7b4a2e);
+    padding: 25px;
+    border: 4px solid #d4a017;
+    border-radius: 15px;
+    text-align: center;
+    color: #e8d5b5;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    width: 80%;
+    max-width: 500px;
+    transition: transform 0.5s ease;
+}
+
+.riddle-modal.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.riddle-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #d4a017;
+    text-shadow: 0 0 5px #ff5e00;
+}
+
+.riddle-content p {
+    font-size: 1.1rem;
+    margin-bottom: 25px;
+    line-height: 1.5;
+}
+
+.riddle-options {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.riddle-options button {
+    padding: 12px;
+    font-size: 1.1rem;
+    color: #4b2e1e;
+    background: linear-gradient(to bottom, #e8d5b5 0%, #c5a880 100%);
+    border: 2px solid #d4a017;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.riddle-options button:hover {
+    transform: scale(1.05);
+    background: linear-gradient(to bottom, #f5e6c7 0%, #d4a017 100%);
+    box-shadow: 0 0 15px rgba(212, 160, 23, 0.5);
+}
+
+.close-btn {
+    margin-top: 25px;
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    color: #e8d5b5;
+    background: linear-gradient(45deg, #ff5e00, #d4a017);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.close-btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(212, 160, 23, 0.5);
+}
+
+.feedback-modal {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #4b2e1e, #7b4a2e);
+    padding: 15px;
+    border: 3px solid #d4a017;
+    border-radius: 10px;
+    text-align: center;
+    color: #e8d5b5;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 25;
+    width: 60%;
+    max-width: 300px;
+    transition: transform 0.5s ease;
+}
+
+.feedback-modal.show {
+    transform: translate(-50%, 0) scale(1);
+}
+
+.feedback-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.feedback-content p {
+    font-size: 1.2rem;
+    color: #d4a017;
+    text-shadow: 0 0 5px #ff5e00;
+}
+
+.medal-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.medal-label {
+    font-size: 0.9rem;
+    color: #e8d5b5;
+    text-shadow: 0 0 3px #ff5e00;
+}
+
+.feedback-medal {
+    width: 30px;
+    height: 30px;
+    font-size: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: rgba(212, 160, 23, 0.2);
+    box-shadow: 0 0 8px rgba(212, 160, 23, 0.5);
+    animation: shimmer 2s infinite, glowMedal 1.5s infinite;
+    transform: scale(1);
+    transition: transform 0.3s ease;
+}
+
+.feedback-medal.silver::before {
+    content: "🥈";
+}
+
+.feedback-medal.gold::before {
+    content: "🥇";
+}
+
+.feedback-medal.platinum::before {
+    content: "🏆";
+}
+
+.celebration-modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #4b2e1e, #7b4a2e);
+    padding: 25px;
+    border: 4px solid #d4a017;
+    border-radius: 15px;
+    text-align: center;
+    color: #e8d5b5;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 30;
+    width: 80%;
+    max-width: 400px;
+    transition: transform 0.5s ease;
+}
+
+.celebration-modal.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.celebration-content h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    color: #d4a017;
+    text-shadow: 0 0 5px #ff5e00;
+}
+
+.celebration-content p {
+    font-size: 1.1rem;
+    margin-bottom: 20px;
+}
+
+.flower-blast {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 40;
+}
+
+.flower-petal {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: url('https://via.placeholder.com/25?text=🌸') no-repeat center;
+    background-size: cover;
+    box-shadow: 0 0 10px rgba(255, 94, 0, 0.5);
+    animation: petalFall 4s linear forwards;
+}
+
+@keyframes petalFall {
+    0% {
+        transform: translateY(-100px) translateX(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(600px) translateX(calc(50px * var(--drift))) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+.game-over {
+    position: absolute;
+
+
+top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, #4b2e1e, #7b4a2e);
+    padding: 25px;
+    border: 4px solid #d4a017;
+    border-radius: 15px;
+    text-align: center;
+    color: #e8d5b5;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+    z-index: 20;
+    transition: transform 0.5s ease;
+}
+
+.game-over.show {
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.game-over-content .big-congrats {
+    font-size: 2.5rem;
+    color: #d4a017;
+    text-shadow: 0 0 10px #ff5e00;
+    animation: glow 1.5s infinite;
+    margin-bottom: 10px;
+}
+
+@keyframes glow {
+    0% { text-shadow: 0 0 10px #ff5e00; }
+    50% { text-shadow: 0 0 20px #ff5e00; }
+    100% { text-shadow: 0 0 10px #ff5e00; }
+}
+
+.game-over-content h2 {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #d4a017;
+    text-shadow: 0 0 5px #ff5e00;
+}
+
+.game-over-content p {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.scroll-container {
+    width: 100%;
+    max-width: 400px;
+    height: 80px;
+    position: relative;
+    margin: 20px auto;
+    background: linear-gradient(to bottom, #e8d5b5 0%, #c5a880 100%);
+    border: 3px solid #d4a017;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(212, 160, 23, 0.5);
+    overflow: hidden;
+    animation: glowScroll 2s infinite;
+}
+
+.scroll-content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: #4b2e1e;
+    text-shadow: 0 0 5px #ff5e00;
+    padding: 10px;
+    text-align: center;
+    background: url('https://via.placeholder.com/400x80?text=Scroll+Texture') no-repeat center;
+    background-size: cover;
+    clip-path: inset(0 100% 0 0);
+    animation: unroll 3s ease forwards 0.5s;
+    position: relative;
+}
+
+.scroll-content::before {
+    content: "✨";
+    position: absolute;
+    font-size: 1.5rem;
+    opacity: 0;
+    animation: sparkle 1s infinite 1s;
+}
+
+@keyframes unroll {
+    0% { clip-path: inset(0 100% 0 0); }
+    100% { clip-path: inset(0 0 0 0); }
+}
+
+@keyframes glowScroll {
+    0% { box-shadow: 0 0 15px rgba(212, 160, 23, 0.5); }
+    50% { box-shadow: 0 0 25px rgba(212, 160, 23, 0.8); }
+    100% { box-shadow: 0 0 15px rgba(212, 160, 23, 0.5); }
+}
+
+@keyframes sparkle {
+    0% { opacity: 0; transform: translate(0, 0); }
+    50% { opacity: 1; transform: translate(10px, -10px); }
+    100% { opacity: 0; transform: translate(-10px, 10px); }
+}
+
+.game-over-content button {
+    padding: 12px 25px;
+    font-size: 1.1rem;
+    color: #e8d5b5;
+    background: linear-gradient(45deg, #ff5e00, #d4a017);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.game-over-content button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(212, 160, 23, 0.5);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .game-container {
+        width: 90%;
+        height: 500px;
+    }
+    .game-header h1 {
+        font-size: 1.5rem;
+    }
+    .inventory {
+        font-size: 1rem;
+        gap: 10px;
+    }
+    .medal {
+        width: 35px;
+        height: 35px;
+        font-size: 26px;
+    }
+    .clickable-area {
+        width: 50px;
+        height: 50px;
+    }
+    .riddle-content h2 {
+        font-size: 1.5rem;
+    }
+    .riddle-content p {
+        font-size: 1rem;
+    }
+    .riddle-options button {
+        font-size: 1rem;
+        padding: 10px;
+    }
+    .medal-label {
+        font-size: 0.8rem;
+    }
+    .feedback-medal {
+        width: 25px;
+        height: 25px;
+        font-size: 20px;
+    }
+    .feedback-content p {
+        font-size: 1rem;
+    }
+    .celebration-content h2 {
+        font-size: 1.5rem;
+    }
+    .celebration-content p {
+        font-size: 1rem;
+    }
+    .game-over-content .big-congrats {
+        font-size: 2rem;
+    }
+    .game-over-content h2 {
+        font-size: 1.5rem;
+    }
+    .scroll-container {
+        max-width: 300px;
+        height: 60px;
+    }
+    .scroll-content {
+        font-size: 1rem;
+    }
+}
+
+
+@media (max-width: 480px) {
+    .game-container {
+        width: 95%;
+        height: 400px;
+    }
+    .game-header h1 {
+        font-size: 1.2rem;
+    }
+    .inventory {
+        font-size: 0.9rem;
+        gap: 5px;
+    }
+    .medal {
+        width: 30px;
+        height: 30px;
+        font-size: 22px;
+    }
+    .clickable-area {
+        width: 40px;
+        height: 40px;
+    }
+    .riddle-content h2 {
+        font-size: 1.2rem;
+    }
+    .riddle-content p {
+        font-size: 0.9rem;
+    }
+    .riddle-options button {
+        font-size: 0.9rem;
+        padding: 8px;
+    }
+    .medal-label {
+        font-size: 0.7rem;
+    }
+    .feedback-medal {
+        width: 20px;
+        height: 20px;
+        font-size: 16px;
+    }
+    .feedback-content p {
+        font-size: 0.9rem;
+    }
+    .celebration-content h2 {
+        font-size: 1.2rem;
+    }
+    .celebration-content p {
+        font-size: 0.9rem;
+    }
+    .game-over-content .big-congrats {
+        font-size: 1.5rem;
+    }
+    .game-over-content h2 {
+        font-size: 1.5rem;
+    }
+    .game-over-content p {
+        font-size: 1rem;
+    }
+    .game-over-content button {
+        font-size: 0.9rem;
+        padding: 8px 15px;
+    }
+    .scroll-container {
+        max-width: 250px;
+        height: 50px;
+    }
+    .scroll-content {
+        font-size: 0.9rem;
+    }
+}
+
+
+
+.view {
+  padding: 20px;
+  max-width: 400px;
+  margin: auto;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 8px;
+}

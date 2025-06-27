@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-content">
+        <h2>Welcome to Sanskrit Heritage</h2>
+        <p>Step into the timeless world of Sanskrit, where the echoes of ancient wisdom meet the aspirations of the modern age. Our website is dedicated to preserving and promoting the rich heritage of Sanskrit—one of the oldest and most profound languages in the world.</p>
+        <p>At Sanskrit Heritage, we believe in keeping alive the treasures of this classical language, which has been a beacon of knowledge, culture, and spirituality for millennia. Whether you're a scholar, student, or simply curious, we invite you to explore the wealth of resources we offer.</p>
+        <button class="explore-btn">Explore Now</button>  
+    </div>
+    <div class="visual">
+        <img src="{{ url_for('static', filename='images/pic.jpg') }}" alt="Sanskrit Visual">
+    </div>
+</section>
+
+<section class="features">
+    <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/visualhome.jpg') }}" alt="Visual Home">
+        <h3>Ancient Knowledge</h3>
+        <p>Ancient wisdom offers unparalleled insights...</p>
+    </div>
+    <div class="feature-card">
+        <img src="https://www.shutterstock.com/image-photo/ancient-indian-mathematics-some-books-600nw-2477162623.jpg" alt="Rare Books">
+        <h3>Rare Books</h3>
+        <p>Rare manuscripts hold the teachings of Vedas, Upanishads...</p>
+    </div>
+    <div class="feature-card">
+        <img src="{{ url_for('static', filename='images/rishi.jpg') }}" alt="Rishis and Munis">
+        <h3>Rishis and Munis</h3>
+        <p>Enlightened seers shaped culture, ethics, and knowledge...</p>
+    </div>
+</section>
+
+
+  
+{% endblock %}

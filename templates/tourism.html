@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Discover Ancient India | Cultural Heritage Tourism</title>
+    <link rel="stylesheet" href="static\css\tourism.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="navbar">
+            <a href="/index" class="logo">Tatva<span>Heritage</span></a>
+            <ul class="nav-links">
+                <li><a href="#culture">Culture</a></li>
+                <li><a href="#destinations">Destinations</a></li>
+                <li><a href="#temples">Temples</a></li>
+                <li><a href="#heritage-map">Heritage Map</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Discover Ancient India's Legacy</h1>
+        <p>Embark on a journey through time and explore the rich tapestry of Indian heritage, where ancient wisdom meets architectural marvels.</p>
+        <button class="btn btn-primary">Explore Now</button>
+    </section>
+
+    <!-- Culture Section -->
+    <section id="culture" class="section">
+        <div class="section-title">
+            <h2>Cultural Treasures</h2>
+        </div>
+        <div class="culture-grid">
+            <div class="culture-card">
+                <img src="https://media.istockphoto.com/id/508628776/photo/sunset-over-kandariya-mahadeva-temple.jpg?s=612x612&w=0&k=20&c=YOpVZmLiY4ccl_aoWRJhfqLpNEDgjyOGuTAKbobCO-U=" alt="Ancient Temples">
+                <div class="card-content">
+                    <h3>Temple Architecture</h3>
+                    <p>India's spiritual legacy is etched in stone through magnificent temples that showcase extraordinary craftsmanship and religious devotion.</p>
+                    <a href="#" class="read-more">Learn more <span>→</span></a>
+                </div>
+            </div>
+            <div class="culture-card">
+                <img src="https://d2ajlz7o3p8ddv.cloudfront.net/media/post_type/images/_DSC0668-Edit_02_ymo6lOt.jpg" alt="Classical Dance">
+                <div class="card-content">
+                    <h3>Classical Arts</h3>
+                    <p>From Bharatanatyam to Kathakali, India's classical dance forms tell stories of gods, heroes, and emotions through graceful movements.</p>
+                    <a href="#" class="read-more">Learn more <span>→</span></a>
+                </div>
+            </div>
+            <div class="culture-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT3pLjX26z33Ws-g4dttay3aQX1QMbqV4FOaw&s" alt="Ancient Texts">
+                <div class="card-content">
+                    <h3>Ancient Wisdom</h3>
+                    <p>The Vedas, Upanishads, and epic texts like Ramayana and Mahabharata form the philosophical foundation of Indian civilization.</p>
+                    <a href="#" class="read-more">Learn more <span>→</span></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Destinations Section -->
+    <section id="destinations" class="section destinations">
+        <div class="section-title">
+            <h2>Heritage Destinations</h2>
+        </div>
+        <div class="destination-slider">
+            <div class="slides">
+                <div class="slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUBhMN-rSqfjmgkz3i61QOrRYSHbSyMLRBKQ&s" alt="Hampi">
+                    <div class="slide-content">
+                        <h3>Hampi</h3>
+                        <p>Once the capital of the Vijayanagara Empire, Hampi is now a UNESCO World Heritage site with stunning ruins.</p>
+                        <a href="#" class="read-more" style="color: white;">Visit Hampi <span>→</span></a>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUBhMN-rSqfjmgkz3i61QOrRYSHbSyMLRBKQ&s" alt="Khajuraho">
+                    <div class="slide-content">
+                        <h3>Khajuraho</h3>
+                        <p>Famous for its nagara-style architectural symbolism and erotic sculptures from the Chandela dynasty.</p>
+                        <a href="#" class="read-more" style="color: white;">Visit Khajuraho <span>→</span></a>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTUBhMN-rSqfjmgkz3i61QOrRYSHbSyMLRBKQ&s" alt="Ajanta & Ellora Caves">
+                    <div class="slide-content">
+                        <h3>Ajanta & Ellora Caves</h3>
+                        <p>These rock-cut cave monuments feature masterpieces of Buddhist, Hindu and Jain religious art.</p>
+                        <a href="#" class="read-more" style="color: white;">Visit Ajanta & Ellora <span>→</span></a>
+                    </div>
+                </div>
+            </div>
+            <div class="slider-nav">
+                <div class="prev">❮</div>
+                <div class="next">❯</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Temples Section -->
+    <section id="temples" class="section">
+        <div class="section-title">
+            <h2>Sacred Temples & Their Stories</h2>
+        </div>
+        <div class="temples-container">
+            <div class="temple-card">
+                <div class="temple-image">
+                    <img src="https://m.media-amazon.com/images/I/71GsGA0pF7L._UF1000,1000_QL80_.jpg" alt="Konark Sun Temple">
+                </div>
+                <div class="temple-info">
+                    <h3>Konark Sun Temple</h3>
+                    <span class="temple-location">Odisha</span>
+                    <p>Built in the 13th century, this architectural marvel is designed as a giant chariot of the Sun God, Surya. With 12 pairs of intricately carved wheels representing the months and 7 horses symbolizing the days of the week, the temple is a testament to ancient astronomical knowledge.</p>
+                    <div class="temple-story" data-story="konark">
+                        <h4>The Legend</h4>
+                        <p>According to legend, King Narasimhadeva I commissioned this temple after praying to Lord Surya to cure his son from illness. The chief architect, Bisu Maharana, faced a challenge - the temple couldn't be completed, risking the lives of all 1200 artisans. His 12-year-old son sacrificed himself to save the others by solving the final architectural puzzle, though the dome was never completed.</p>
+                    </div>
+                    <button class="read-story-btn" data-target="konark">Read the Legend</button>
+                </div>
+            </div>
+            
+            <div class="temple-card">
+                <div class="temple-image">
+                    <img src="https://www.poojn.in/wp-content/uploads/2025/03/Meenakshi-Amman-Temple-Visit-Planning-Timings-Dress-Code-and-Darshan-Guide.jpeg.jpg" alt="Meenakshi Temple">
+                </div>
+                <div class="temple-info">
+                    <h3>Meenakshi Amman Temple</h3>
+                    <span class="temple-location">Madurai, Tamil Nadu</span>
+                    <p>This magnificent temple dedicated to Goddess Meenakshi (Parvati) and Lord Sundareswarar (Shiva) features 14 gopurams (tower gateways) covered with thousands of colorful sculptures. The temple complex spans 14 acres and houses the famous Thousand Pillar Hall.</p>
+                    <div class="temple-story" data-story="meenakshi">
+                        <h4>The Legend</h4>
+                        <p>Legend tells that Goddess Parvati incarnated as Meenakshi (meaning "fish-eyed") to King Malayadwaja Pandya and Queen Kanchanamala after they performed rigorous penance. Born with three breasts, a divine voice promised the third would disappear when she met her destined husband. Upon meeting Lord Shiva (as Sundareswarar), her third breast vanished, and they ruled Madurai together as divine beings.</p>
+                    </div>
+                    <button class="read-story-btn" data-target="meenakshi">Read the Legend</button>
+                </div>
+            </div>
+            
+            <div class="temple-card">
+                <div class="temple-image">
+                    <img src="https://mymodernmet.com/wp/wp-content/uploads/2019/09/kailasa-temple-ellora-caves-5.jpg" alt="Kailasa Temple">
+                </div>
+                <div class="temple-info">
+                    <h3>Kailasa Temple, Ellora</h3>
+                    <span class="temple-location">Maharashtra</span>
+                    <p>This astonishing monolithic structure was carved from a single rock, making it the largest monolithic excavation in the world. Built by the Rashtrakuta King Krishna I in the 8th century, it's dedicated to Lord Shiva and designed to resemble Mount Kailash.</p>
+                    <div class="temple-story" data-story="kailasa">
+                        <h4>The Legend</h4>
+                        <p>According to local lore, the temple was created by an architect who promised the queen to complete it in just one week. To achieve this impossible feat, he started carving from the top down, working with 10,000 sculptors day and night. The excavation removed over 200,000 tons of rock, and legends say the architect indeed fulfilled his promise through divine intervention from Lord Shiva himself.</p>
+                    </div>
+                    <button class="read-story-btn" data-target="kailasa">Read the Legend</button>
+                </div>
+            </div>
+            
+            <div class="temple-card">
+                <div class="temple-image">
+                    <img src="https://odishaheritage.com/wp-content/uploads/2023/09/Lord_Jagannath_temple_at_night.jpg" alt="Jagannath Temple">
+                </div>
+                <div class="temple-info">
+                    <h3>Jagannath Temple</h3>
+                    <span class="temple-location">Puri, Odisha</span>
+                    <p>Famous for its annual Rath Yatra (chariot festival), this 12th-century temple is dedicated to Lord Jagannath, a form of Lord Vishnu. The temple is known for its unique architectural features, including the mysterious "shadow that disappears" phenomenon.</p>
+                    <div class="temple-story" data-story="jagannath">
+                        <h4>The Legend</h4>
+                        <p>The temple's iconic wooden deities have a fascinating origin story. King Indradyumna was instructed in a dream to retrieve a sacred log that had washed ashore. When no artist could carve it, Lord Vishwakarma (divine architect) appeared as an old craftsman, requesting complete privacy for 21 days. The impatient king peeked inside after 14 days, and the craftsman disappeared, leaving the unfinished deities with their distinctive large heads and truncated limbs - believed to represent the cosmic form of divinity.</p>
+                    </div>
+                    <button class="read-story-btn" data-target="jagannath">Read the Legend</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Heritage Map Section -->
+    <section id="heritage-map">
+  <h2 style="text-align:center;">Interactive Heritage Map</h2>
+  <p style="text-align:center; margin-bottom: 1rem;">Explore India's cultural landmarks</p>
+  <div class="map-container">
+    <div id="heritage-sites-map"></div>
+    <div class="map-sidebar">
+      <h3>Heritage Sites</h3>
+      <div class="map-legend">
+        <div class="legend-item"><span class="marker-icon temple"></span> Temples</div>
+        <div class="legend-item"><span class="marker-icon fort"></span> Forts</div>
+        <div class="legend-item"><span class="marker-icon monument"></span> Monuments</div>
+        <div class="legend-item"><span class="marker-icon cave"></span> Caves</div>
+      </div>
+
+      <div class="map-filters">
+        <h4>Filter by Type</h4>
+        <label><input type="checkbox" class="filter-checkbox" value="temple" checked /> Temples</label><br />
+        <label><input type="checkbox" class="filter-checkbox" value="fort" checked /> Forts</label><br />
+        <label><input type="checkbox" class="filter-checkbox" value="monument" checked /> Monuments</label><br />
+        <label><input type="checkbox" class="filter-checkbox" value="cave" checked /> Caves</label>
+      </div>
+
+      <div class="site-info-default">
+        <p>Click on a marker to view details.</p>
+      </div>
+
+      <div class="site-info-content">
+        <h3 class="site-title"></h3>
+        <img src="" alt="Site Image" />
+        <p class="site-description"></p>
+        <p><strong>Period:</strong> <span class="site-period"></span></p>
+        <p><strong>Dynasty:</strong> <span class="site-dynasty"></span></p>
+        <p><strong>UNESCO:</strong> <span class="site-unesco"></span></p>
+        <a href="#" class="site-link">Plan Your Visit</a>
+      </div>
+    </div>
+  </div>
+</section>
+    
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section">
+        <div class="section-title">
+            <h2>Heritage Experiences</h2>
+        </div>
+        <div class="testimonials-slider">
+            <div class="testimonial-slides">
+                <div class="testimonial">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkTorRjP9pB003a11Bt-4GccXYe2kzgYtq5A&s" alt="Tourist">
+                    <p>"Exploring ancient India with TatvaHeritage was truly transformative. The guided tour through the temples of Tamil Nadu revealed architectural wonders I never knew existed."</p>
+                    <h4>Sarah Johnson</h4>
+                    <span>Cultural Enthusiast</span>
+                </div>
+                <div class="testimonial">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkTorRjP9pB003a11Bt-4GccXYe2kzgYtq5A&s" alt="Tourist">
+                    <p>"The spiritual journey through Varanasi was beyond words. Understanding the ancient rituals and philosophies with expert guides made this an unforgettable experience."</p>
+                    <h4>Michael Chen</h4>
+                    <span>History Professor</span>
+                </div>
+                <div class="testimonial">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkTorRjP9pB003a11Bt-4GccXYe2kzgYtq5A&s" alt="Tourist">
+                    <p>"From the majestic forts of Rajasthan to the intricate step wells, every site tells a fascinating story of India's rich past. Highly recommend their heritage tours!"</p>
+                    <h4>Amelia Rodriguez</h4>
+                    <span>Travel Blogger</span>
+                </div>
+            </div>
+            <div class="dots">
+                <div class="dot active"></div>
+                <div class="dot"></div>
+                <div class="dot"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Section -->
+    <section id="contact" class="newsletter">
+        <h2>Join Our Heritage Community</h2>
+        <p>Subscribe to our newsletter and receive curated content about ancient Indian culture, exclusive travel offers, and invitations to cultural events.</p>
+        <form class="newsletter-form">
+            <input type="email" placeholder="Your email address" required>
+            <button type="submit">Subscribe</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-column">
+                <h3>TatvaHeritage</h3>
+                <p>Connecting modern travelers with ancient wisdom and cultural treasures of India.</p>
+                <div class="social-links">
+                    <a href="#"><span>f</span></a>
+                    <a href="#"><span>in</span></a>
+                    <a href="#"><span>ig</span></a>
+                    <a href="#"><span>tw</span></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h3>Explore</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Heritage Tours</a></li>
+                    <li><a href="#">Cultural Festivals</a></li>
+                    <li><a href="#">Sacred Pilgrimages</a></li>
+                    <li><a href="#">Architectural Marvels</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Resources</h3>
+                <ul class="footer-links">
+                    <li><a href="#">Travel Guide</a></li>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Cultural Calendar</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h3>Contact</h3>
+                <ul class="footer-links">
+                    <li>New Delhi, India</li>
+                    <li>info@tatvaheritage.com</li>
+                    <li>+91 98765 43210</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>© 2025 TatvaHeritage. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="static\js\tourism.js"></script>
+</body>
+</html>
+
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .hero {
+      height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background-image: url('https://i0.wp.com/archestudy.com/wp-content/uploads/2022/01/Vesara-style-temple.jpg?fit=1920%2C1080&ssl=1'); /* Replace with your image URL */
+      background-attachment: fixed;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.4); /* optional dark overlay */
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 3em;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 1.2em;
+      max-width: 600px;
+      margin-bottom: 30px;
+    }
+
+    .btn-primary {
+      padding: 12px 24px;
+      font-size: 1em;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    .btn-primary:hover {
+      background-color: #e67e22;
+    }
+  </style>
+
+
+

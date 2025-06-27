@@ -1,0 +1,426 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - Sanskrit Heritage{% endblock %}
+
+{% block content %}
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home - Tatva | Explore Indian Heritage</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <style>
+    :root {
+      --primary-color: #1c1c1c;
+      --secondary-color: #c19a6b;
+      --text-light: #f5f5f5;
+      --background-light: #fff8f0;
+      --transition: all 0.3s ease-in-out;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: var(--background-light);
+      color: var(--primary-color);
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .btn {
+      background-color: var(--secondary-color);
+      color: white;
+      padding: 0.6rem 1.4rem;
+      border: none;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: var(--transition);
+      margin-top: 1rem;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background-color: #a67c52;
+      transform: scale(1.05);
+    }
+
+    .hero {
+      height: 100vh;
+      background-image: url('https://tripxl.com/blog/wp-content/uploads/2024/10/Shree-Shiva-Kshethram.jpg');
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: var(--text-light);
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      text-shadow: 2px 2px 5px #000;
+    }
+
+    .hero p {
+      font-size: 1.2rem;
+      margin: 1rem 0 2rem;
+      text-shadow: 1px 1px 3px #000;
+    }
+
+    section {
+      padding: 4rem 8%;
+    }
+
+    .section-title {
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .section-title::after {
+      content: '';
+      width: 80px;
+      height: 3px;
+      background-color: var(--secondary-color);
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .features {
+      display: grid;
+      flex-wrap: wrap;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      justify-items: center;
+      justify-content: center;
+      
+    }
+
+    .feature-card {
+      width: 300px;
+      background-color: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .feature-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 10px;
+      margin-bottom: 1rem;
+    }
+
+    .feature-card h3 {
+      margin-top: 0.5rem;
+      font-size: 1.4rem;
+    }
+
+    .cta {
+      background: linear-gradient(120deg, #1c1c1c, #3a3a3a);
+      color: white;
+      text-align: center;
+      padding: 4rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta::before {
+      content: "";
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: -100%;
+      background: rgba(255, 255, 255, 0.05);
+      transform: skewX(-20deg);
+      animation: shimmer 5s infinite;
+    }
+
+    @keyframes shimmer {
+      0% {
+        left: -100%;
+      }
+      100% {
+        left: 100%;
+      }
+    }
+
+    .cta h2 {
+      font-size: 2.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .cta p {
+      max-width: 700px;
+      margin: 1rem auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    .info-section {
+      background-color: #fff;
+    }
+
+    .info-boxes {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2rem;
+    }
+
+    .info-card {
+      background-color: var(--background-light);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      transition: var(--transition);
+    }
+
+    .info-card:hover {
+      transform: scale(1.03);
+    }
+
+    .testimonial-box {
+      max-width: 600px;
+      margin: auto;
+      padding: 2rem;
+      background-color: var(--background-light);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      min-height: 180px;
+      text-align: center;
+    }
+
+    .testimonial-dots {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .dot {
+      width: 14px;
+      height: 14px;
+      margin: 0 6px;
+      background-color: #bbb;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .dot.active {
+      background-color: var(--secondary-color);
+    }
+  </style>
+</head>
+
+<body>
+  <section class="hero animate__animated animate__fadeIn">
+    <h1>Welcome to <span class="highlight">Tatva</span></h1>
+    <p>Discover the roots of Indian wisdom through a modern lens</p>
+    <a href="#features" class="btn">Explore Now</a>
+  </section>
+
+  <section id="features">
+    <h2 class="section-title">Key Offerings</h2>
+    <div class="features">
+      <div class="feature-card">
+        <img src="https://www.cheggindia.com/wp-content/uploads/2024/07/Timeline-of-Indian-history-1024x614.png" alt="Timeline" />
+        <h3>Interactive Timeline</h3>
+        <p>Trace the history of Bharat from Vedic to Modern age.</p>
+        <a href="/ani" class="btn">Explore</a>
+      </div>
+      <div class="feature-card">
+        <img src="https://indiansafaris.com/wp-content/uploads/2020/12/india_spiritual_tours.jpg" alt="Tourism" />
+        <h3>Spiritual Tourism</h3>
+        <p>Virtual journeys to ancient Indian temples and sites.</p>
+        <a href="/tourism" class="btn">Explore</a>
+      </div>
+      <div class="feature-card">
+        <img src="https://www.wsgamecompany.com/cdn/shop/files/3feaae2be7f7ce637a284eac8e794c16.jpg?v=1745265446&width=533" alt="Games" />
+        <h3>Heritage Games</h3>
+        <p>Learn culture through interactive quizzes & games.</p>
+        <a href="/ludogame" class="btn">Explore</a>
+      </div>
+      <div class="feature-card">
+        <img src="https://adrianblau.wordpress.com/wp-content/uploads/2014/03/history-research.jpg" alt="Research" />
+        <h3>Research Corner</h3>
+        <p>Access scholarly content and contribute knowledge.</p>
+        <a href="/research" class="btn">Explore</a>
+      </div>
+      <div class="feature-card">
+        <img src="https://i.aaj.tv/primary/2023/05/3111154823a1b6c.webp" alt="Research" />
+        <h3>Map Corner</h3>
+        <p>Access the ancient places and explore more.</p>
+        <a href="/map" class="btn">Explore</a>
+      </div>
+      <div class="feature-card">
+        <img src="data:image/jpeg;base64,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" alt="Dynasty" />
+        <h3>Dynasty Corner</h3>
+        <p>Access the knowledge of dynasties and its significance in history.</p>
+        <a href="/dynasty" class="btn">Explore</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta animate__animated animate__fadeIn">
+    <h2>Join the Cultural Revival</h2>
+    <p>Be a part of a growing digital movement that brings the treasures of Indian civilization to your fingertips. Connect with scholars, explore timeless wisdom, and contribute to the resurgence of Bharatiya knowledge.</p>
+    <a href="/knowledge" class="btn">Get Involved</a>
+  </section>
+
+  <section class="testimonials animate__animated animate__fadeIn">
+    <h2 class="section-title">Voices of Experience</h2>
+    <div class="testimonial-box" id="testimonialText">
+      <p>"Tatva brings Indian culture alive. The presentation of Rigveda shlokas was deeply moving."</p>
+      <h4>Dr. Malviya</h4>
+    </div>
+    <div class="testimonial-dots">
+      <span class="dot active" onclick="showTestimonial(0)"></span>
+      <span class="dot" onclick="showTestimonial(1)"></span>
+      <span class="dot" onclick="showTestimonial(2)"></span>
+    </div>
+  </section>
+
+  <section class="info-section" style="background-color: #fff; padding: 4rem 8%;">
+  <h2 class="section-title">Explore More</h2>
+  <div class="info-boxes">
+    <div class="info-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWaq-O-NhIKoI-zbJ01PcVjio72GpLXIQ1XA&s" alt="Vedas" class="info-image" />
+      <h3>Vedas Unveiled</h3>
+      <p>“Agni mile purohitam yajnasya devam ritvijam” – Dive deep into the essence of Rigveda and other Vedas with translations, context, and interpretations.</p>
+    </div>
+    <div class="info-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTYJ9EzYNFfe6A-l7vEKdxqZSG_GQNaJxJc2Q&s" alt="Ayurveda" class="info-image" />
+      <h3>Ayurveda & Wellness</h3>
+      <p>Discover holistic practices from ancient India — diet, herbs, and daily rituals for mental and physical balance.</p>
+    </div>
+    <div class="info-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZLm9_LkFXBDR7APZ7Xm0vmfGKWC5U58RiE0_XrJXstCvLBl_7pvzsJ9qOyrDJ0E9kaOI&usqp=CAU" alt="Architecture" class="info-image" />
+      <h3>Temple Geometry</h3>
+      <p>Learn about mandalas, vastu shastra, and how ancient temples were scientifically designed for spiritual alignment.</p>
+    </div>
+    <div class="info-card">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSSkBeYbxsztleIPD-TjzDeH5VU9WW_HefvQA&s" alt="Jyotish" class="info-image" />
+      <h3>Jyotish & Cosmic Time</h3>
+      <p>Decode the link between planetary motion and life patterns using Vedic astrology and the Panchang system.</p>
+    </div>
+    <div class="info-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfqrDuaOISYQV35QOzuyB1Pnlv8thXU7Ca8A&s" alt="Yoga" class="info-image" />
+    <h3>Yoga & Meditation</h3>
+    <p>Explore Patanjali’s Yoga Sutras, ancient breathing techniques (pranayama), and the path to self-realization through dhyana and asana.</p>
+    </div>
+
+    <div class="info-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQeYn5HzAzLk4Ne-mSseIIcA7ehxjYJ1is38Q&s" alt="Sanskrit" class="info-image" />
+    <h3>Sanskrit Wisdom</h3>
+    <p>Unlock the power of the Sanskrit language — the root of many Indic traditions, scriptures, and mantras that shaped India's intellectual legacy.</p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+  .info-card {
+    background-color: var(--background-light);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    padding: 2rem;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  .info-card:hover {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+  .info-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 1s ease, transform 1s ease;
+  }
+  .info-boxes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+  }
+  .info-image {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+  }
+</style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cards = document.querySelectorAll('.info-card');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    cards.forEach(card => {
+      observer.observe(card);
+    });
+  });
+</script>
+
+
+  <script>
+    const testimonials = [
+      {
+        quote: '"Tatva brings Indian culture alive. The presentation of Rigveda shlokas was deeply moving."',
+        author: 'Dr. Malviya'
+      },
+      {
+        quote: '"I explored all 4 Vedas interactively and learned through beautiful explanations."',
+        author: 'Mr. Gupta'
+      },
+      {
+        quote: '"The Tatva Map helped me trace ancient pilgrimage sites with ease and clarity."',
+        author: 'Mrs. Pandit'
+      }
+    ];
+
+    function showTestimonial(index) {
+      const textBox = document.getElementById('testimonialText');
+      textBox.innerHTML = `<p>${testimonials[index].quote}</p><h4>${testimonials[index].author}</h4>`;
+      document.querySelectorAll('.dot').forEach(dot => dot.classList.remove('active'));
+      document.querySelectorAll('.dot')[index].classList.add('active');
+    }
+  </script>
+</body>
+
+{% endblock %}
